@@ -1,0 +1,79 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib", "src\Finbuckle.MultiTenant.Contrib\Finbuckle.MultiTenant.Contrib.csproj", "{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.EFCoreStore", "src\Finbuckle.MultiTenant.Contrib.EFCoreStore\Finbuckle.MultiTenant.Contrib.EFCoreStore.csproj", "{209D1999-C539-4A2A-B4D6-AB25CB0F852C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D98E1B39-F1DF-4DE4-A861-305708B430E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5C66BB21-BA5F-405B-89AA-E734B560A4BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Test.csproj", "{21A14485-1AAC-4FD3-A481-DA319A86B1BD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDF63DBE-5186-4CC8-B301-2622F1F7AEE3}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity", "src\Identity.MultiTenant\Finbuckle.MultiTenant.Contrib.Identity.csproj", "{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity.Test", "tests\Finbuckle.MultiTenant.Contrib.Identity.Test\Finbuckle.MultiTenant.Contrib.Identity.Test.csproj", "{6824B52C-1043-4283-9CF6-500DD0E5BACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.IdentityServer", "src\Finbuckle.MultiTenant.Contrib.IdentityServer\Finbuckle.MultiTenant.Contrib.IdentityServer.csproj", "{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Strategies", "src\Finbuckle.MultiTenant.Contrib.Abstractions\Finbuckle.MultiTenant.Contrib.Strategies.csproj", "{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{209D1999-C539-4A2A-B4D6-AB25CB0F852C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209D1999-C539-4A2A-B4D6-AB25CB0F852C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209D1999-C539-4A2A-B4D6-AB25CB0F852C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209D1999-C539-4A2A-B4D6-AB25CB0F852C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21A14485-1AAC-4FD3-A481-DA319A86B1BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21A14485-1AAC-4FD3-A481-DA319A86B1BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21A14485-1AAC-4FD3-A481-DA319A86B1BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21A14485-1AAC-4FD3-A481-DA319A86B1BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6824B52C-1043-4283-9CF6-500DD0E5BACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6824B52C-1043-4283-9CF6-500DD0E5BACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6824B52C-1043-4283-9CF6-500DD0E5BACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6824B52C-1043-4283-9CF6-500DD0E5BACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A65CD60B-C9F4-49BE-B6A6-CA38D7A820B8} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
+		{209D1999-C539-4A2A-B4D6-AB25CB0F852C} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
+		{21A14485-1AAC-4FD3-A481-DA319A86B1BD} = {5C66BB21-BA5F-405B-89AA-E734B560A4BF}
+		{3E5FAC0C-F22F-4F37-9D74-10479E0F440C} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
+		{6824B52C-1043-4283-9CF6-500DD0E5BACF} = {5C66BB21-BA5F-405B-89AA-E734B560A4BF}
+		{0FD63076-E44E-4D15-8E36-F8FB4F9BF947} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
+		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A68D3FFE-B789-4B41-B4D9-DF0D04D4AABF}
+	EndGlobalSection
+EndGlobal

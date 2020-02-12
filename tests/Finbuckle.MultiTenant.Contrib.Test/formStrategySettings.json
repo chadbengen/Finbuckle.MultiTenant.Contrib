@@ -1,0 +1,18 @@
+{
+  "FormStrategyConfiguration": {
+    "Parameters": [
+      {
+        "Controller": "Account",
+        "Action": "Login",
+        "Name": "TenantCode",
+        "Type": 1
+      },
+      {
+        "Controller": "Account",
+        "Action": "Register",
+        "Name": "TenantCode",
+        "Type": 1
+      }
+    ]
+  }
+}
