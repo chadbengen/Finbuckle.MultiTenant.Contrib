@@ -2,6 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>Contribution functionality for Finbuckle.MultiTenant adding additional strategies.</Description>
+    <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

@@ -18,7 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity", "src\Identity.MultiTenant\Finbuckle.MultiTenant.Contrib.Identity.csproj", "{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity", "src\Finbuckle.MultiTenant.Contrib.Identity\Finbuckle.MultiTenant.Contrib.Identity.csproj", "{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity.Test", "tests\Finbuckle.MultiTenant.Contrib.Identity.Test\Finbuckle.MultiTenant.Contrib.Identity.Test.csproj", "{6824B52C-1043-4283-9CF6-500DD0E5BACF}"
 EndProject

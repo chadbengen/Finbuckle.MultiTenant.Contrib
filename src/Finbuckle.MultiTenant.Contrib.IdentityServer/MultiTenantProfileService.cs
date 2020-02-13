@@ -57,5 +57,4 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
             }
         }
     }
-
 }

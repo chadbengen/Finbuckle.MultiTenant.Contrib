@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>Contribution functionality for Finbuckle.MultiTenant adding a ClaimsStrategy and FormStrategy</Description>
+    <Description>Contribution base functionality for Finbuckle.MultiTenant</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
+    <Version>1.0.1</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="5.0.0" />
