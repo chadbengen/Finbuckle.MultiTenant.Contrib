@@ -9,6 +9,8 @@ using System.Collections.Concurrent;
 using System.Threading;
 using Finbuckle.MultiTenant.Contrib.EFCoreStore;
 using Microsoft.Extensions.Options;
+using Finbuckle.MultiTenant.Contrib.Configuration;
+using Finbuckle.MultiTenant.Contrib.Extensions;
 
 namespace CareComplete.MultiTenant.Stores
 {
@@ -23,11 +25,11 @@ namespace CareComplete.MultiTenant.Stores
         
         private readonly string _cacheKey = $"{typeof(DefaultEFCacheStore).FullName}";
 
-        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IMemoryCache memoryCache, IOptionsSnapshot<EFCacheStoreConfiguration> config) : base(dbContext)
+        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IMemoryCache memoryCache, TenantConfigurations tenantConfigurations) : base(dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _memoryCache = memoryCache;
-            _cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(config.Value.CacheMinutes));
+            _cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(tenantConfigurations.CacheMinutes()));
         }
 
         private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks = new ConcurrentDictionary<string, SemaphoreSlim>();

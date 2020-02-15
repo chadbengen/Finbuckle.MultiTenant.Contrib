@@ -16,5 +16,9 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
         {
             return configurations.Get<string>(Constants.TenantClaimName);
         }
+        public static int CacheMinutes(this TenantConfigurations configurations)
+        {
+            return configurations.Get<int>(Constants.CacheMinutes);
+        }
     }
 }

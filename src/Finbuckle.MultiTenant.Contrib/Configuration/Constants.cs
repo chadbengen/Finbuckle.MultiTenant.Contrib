@@ -11,6 +11,8 @@
         public const string UseTenantCode = nameof(UseTenantCode);
 
         public const string TenantClaimName = nameof(TenantClaimName);
+       
+        public const string CacheMinutes = nameof(CacheMinutes);
 
         public const string TenantConfigurationSection = "TenantConfiguration";
     }
