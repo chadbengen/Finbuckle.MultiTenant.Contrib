@@ -5,7 +5,7 @@
     <Description>Contribution base functionality for Finbuckle.MultiTenant</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
-    <Version>1.0.1</Version>
+    <Version>2.0.0-alpha</Version>
   </PropertyGroup>
 
   <ItemGroup>
