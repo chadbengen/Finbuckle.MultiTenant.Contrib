@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
+using Finbuckle.MultiTenant.Contrib.Extensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using System.Security.Claims;
@@ -14,15 +17,15 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
     /// <typeparam name="TUserRole"></typeparam>
     public class MultiTenantUserClaimsPrincipalFactory<TUser, TUserRole> : UserClaimsPrincipalFactory<TUser, TUserRole> where TUser : class where TUserRole : class
     {
-        private readonly ITenantContext _tenantContext;
+        private readonly string _tenantClaimName;
 
         public MultiTenantUserClaimsPrincipalFactory(
             UserManager<TUser> userManager,
             RoleManager<TUserRole> roleManager,
             IOptions<IdentityOptions> options,
-            ITenantContext config) : base(userManager, roleManager, options)
+            TenantConfigurations tenantConfigurations) : base(userManager, roleManager, options)
         {
-            _tenantContext = config;
+            _tenantClaimName = tenantConfigurations.TenantClaimName();
         }
 
         /// <summary>
@@ -45,9 +48,9 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
                 }
                 
                 // if the tenantid is not already a user claim then we need to add it
-                if (!id.Claims.Any(a => a.Type == _tenantContext.TenantClaimName))
+                if (!id.Claims.Any(a => a.Type == _tenantClaimName))
                 {
-                    id.AddClaim(new Claim(_tenantContext.TenantClaimName, tenantId));
+                    id.AddClaim(new Claim(_tenantClaimName, tenantId));
                 }
             }
 

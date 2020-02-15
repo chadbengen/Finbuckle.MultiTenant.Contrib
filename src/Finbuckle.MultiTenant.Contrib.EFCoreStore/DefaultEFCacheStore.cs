@@ -23,7 +23,7 @@ namespace CareComplete.MultiTenant.Stores
         
         private readonly string _cacheKey = $"{typeof(DefaultEFCacheStore).FullName}";
 
-        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IMemoryCache memoryCache, IOptionsSnapshot<MultiTenantConfiguration> config) : base(dbContext)
+        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IMemoryCache memoryCache, IOptionsSnapshot<EFCacheStoreConfiguration> config) : base(dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _memoryCache = memoryCache;

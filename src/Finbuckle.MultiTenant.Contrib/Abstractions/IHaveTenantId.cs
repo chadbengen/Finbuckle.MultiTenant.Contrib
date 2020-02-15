@@ -1,4 +1,4 @@
-﻿namespace Finbuckle.MultiTenant.Contrib
+﻿namespace Finbuckle.MultiTenant.Contrib.Abstractions
 {
     public interface IHaveTenantId
     {

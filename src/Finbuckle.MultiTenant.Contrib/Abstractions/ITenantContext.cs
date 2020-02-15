@@ -1,4 +1,7 @@
-﻿namespace Finbuckle.MultiTenant.Contrib
+﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+using System.Collections.Generic;
+
+namespace Finbuckle.MultiTenant.Contrib.Abstractions
 {
     public interface ITenantContext
     {
@@ -7,6 +10,6 @@
         bool TenantResolutionRequired { get; }
         string TenantResolutionStrategy { get; }
         void SetTenantId(IHaveTenantId obj);
-        string TenantClaimName { get; }
+        TenantConfigurations TenantConfigurations { get; }
     }
 }

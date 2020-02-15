@@ -31,11 +31,10 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The same MultiTenantBuilder passed into the method.</returns>
         public static FinbuckleMultiTenantBuilder WithDefaultEFCacheStore(this FinbuckleMultiTenantBuilder builder, IConfigurationSection configurationSection, Action<DbContextOptionsBuilder> options)
         {
-            builder.Services.Configure<MultiTenantConfiguration>(configurationSection);
+            builder.Services.Configure<EFCacheStoreConfiguration>(configurationSection);
             builder.Services.AddDbContext<DefaultTenantDbContext>(options); // Note, will not override existing context if already added.
             return builder.WithStore<DefaultEFCacheStore>(ServiceLifetime.Scoped);
         }
-        
         /// <summary>
         /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/>.
         /// </summary>

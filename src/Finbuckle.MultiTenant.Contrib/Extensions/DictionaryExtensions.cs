@@ -11,35 +11,7 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
     /// </remarks>
     public static class DictionaryExtensions
     {
-        #region RequiresTwoFactorAuthentication
-
-        public const string RequiresTwoFactorAuthentication = nameof(RequiresTwoFactorAuthentication);
-        public static bool? GetRequiresTwoFactorAuthentication(this IDictionary<string, object> dictionary)
-        {
-            return dictionary.TryGetValue(nameof(RequiresTwoFactorAuthentication), out var requires2FA) ? (bool?)requires2FA : null;
-        }
-        public static void SetRequiresTwoFactorAuthentication(this IDictionary<string, object> dictionary, bool? value)
-        {
-            dictionary.Set(RequiresTwoFactorAuthentication, value);
-        }
-
-        #endregion
-
-        #region IsActive
-
-        public const string IsActive = nameof(IsActive);
-        public static bool? GetIsActive(this IDictionary<string, object> dictionary)
-        {
-            return dictionary.TryGetValue(nameof(IsActive), out var isActive) ? (bool?)isActive : null;
-        }
-        public static void SetIsActive(this IDictionary<string, object> dictionary, bool? value)
-        {
-            dictionary.Set(IsActive, value);
-        }
-
-        #endregion
- 
-        private static void Set(this IDictionary<string, object> dictionary, string key, bool? value)
+        public static void Set(this IDictionary<string, object> dictionary, string key, bool? value)
         {
             if (dictionary.ContainsKey(key))
             {
@@ -59,6 +31,22 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
                     dictionary.Add(key, value);
                 }
             }
+        }
+        public static T SafeGet<T>(this IDictionary<string, object> dictionary, string key)
+        {
+            var hasResult = dictionary.TryGetValue(key, out var result);
+
+            if (!hasResult) return default;
+
+            return (T)result;
+        }
+        public static T UnSafeGet<T>(this IDictionary<string, object> dictionary, string key)
+        {
+            var hasResult = dictionary.TryGetValue(key, out var result);
+
+            if (!hasResult) throw new KeyNotFoundException($"Could not find key: {key}");
+
+            return (T)result;
         }
     }
 }

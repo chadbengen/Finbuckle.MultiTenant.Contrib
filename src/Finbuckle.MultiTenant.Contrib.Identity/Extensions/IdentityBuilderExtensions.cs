@@ -1,4 +1,5 @@
-﻿using Finbuckle.MultiTenant.Contrib.Identity;
+﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+using Finbuckle.MultiTenant.Contrib.Identity;
 using Finbuckle.MultiTenant.Contrib.Identity.Validators;
 using Microsoft.AspNetCore.Identity;
 
@@ -35,11 +36,12 @@ namespace Microsoft.Extensions.DependencyInjection
             }
             return builder;
         }
-        
+
         public static IdentityBuilder AddMultiTenantIdentityStores<TUserStore, TRoleStore>(this IdentityBuilder builder)
           where TRoleStore : class
           where TUserStore : class
         {
+            builder.Services.TryAddTenantContext();
             builder.AddRoleStore<TRoleStore>();
             builder.AddUserStore<TUserStore>();
             return builder;
@@ -49,6 +51,8 @@ namespace Microsoft.Extensions.DependencyInjection
             where TUserIdentity : class
             where TUserIdentityRole : class
         {
+            builder.Services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = Constants.TenantClaimName, Value = tenantClaimName });
+            builder.Services.TryAddTenantConfigurations();
             builder.AddClaimsPrincipalFactory<MultiTenantUserClaimsPrincipalFactory<TUserIdentity, TUserIdentityRole>>();
             return builder;
         }
@@ -56,6 +60,7 @@ namespace Microsoft.Extensions.DependencyInjection
            where TUser : class
            where TValidator : class, IUserValidator<TUser>
         {
+            builder.Services.TryAddTenantContext();
             builder.Services.AddScoped(typeof(IUserValidator<TUser>), typeof(TValidator));
             return builder;
         }
@@ -63,6 +68,7 @@ namespace Microsoft.Extensions.DependencyInjection
            where TRole : class
            where TValidator : class, IRoleValidator<TRole>
         {
+            builder.Services.TryAddTenantContext();
             builder.Services.AddScoped(typeof(IRoleValidator<TRole>), typeof(TValidator));
             return builder;
         }

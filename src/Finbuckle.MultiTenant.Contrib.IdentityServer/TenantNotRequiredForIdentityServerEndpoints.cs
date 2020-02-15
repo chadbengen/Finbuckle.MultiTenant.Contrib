@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 

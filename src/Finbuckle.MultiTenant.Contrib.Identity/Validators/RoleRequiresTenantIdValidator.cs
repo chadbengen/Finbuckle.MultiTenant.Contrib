@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace Finbuckle.MultiTenant.Contrib.Identity.Validators

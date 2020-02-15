@@ -11,9 +11,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.TestHost;
-using Finbuckle.MultiTenant.Contrib.Strategies;
+using Microsoft.Extensions.Configuration;
+using Finbuckle.MultiTenant.Contrib.Strategies.Test.Mock;
+using Finbuckle.MultiTenant.Contrib.Strategies.Test.Common;
 
-namespace Finbuckle.MultiTenant.Contrib.Test
+namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
 {
     public class ClaimStrategyShould
     {
@@ -27,7 +29,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var mock = new Mock<HttpContext>();
             if (tenantIdClaimValue != null)
             {
-                mock.Setup(c => c.User.FindFirst(It.IsAny<string>())).Returns(new System.Security.Claims.Claim(claimName, tenantIdClaimValue));
+                mock.Setup(c => c.User.FindFirst(It.IsAny<string>())).Returns(new Claim(claimName, tenantIdClaimValue));
             }
             mock.Setup(c => c.RequestServices).Returns(serviceProvider.Object);
 
@@ -78,7 +80,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
         {
             var logger = new Mock<ILogger<ClaimsStrategy>>();
             var httpContext = CreateHttpContextMock(claimName, tenantIdClaimValue);
-            var strategy = new ClaimsStrategy(logger.Object, claimName);
+            var strategy = new ClaimsStrategy(logger.Object, SharedMock.TestTenantConfigurations);
             var identifier = await strategy.GetIdentifierAsync(httpContext);
             Assert.Equal(expected, identifier);
         }
@@ -91,13 +93,17 @@ namespace Finbuckle.MultiTenant.Contrib.Test
         /// <param name="expected"></param>
         /// <returns></returns>
         [Theory]
-        [InlineData("TenantId", "initech-id", "initech")]
-        [InlineData("TenantId", "lol-id", "lol")]
-        [InlineData("TenantId", "initech-id-not-exist", null)]
-        [InlineData("Tenant-Id", "initech-id", null)]
-        public async Task ReturnExpectedIdentifierFromHostAsync(string tenantClaimName, string tenantClaimValue, string expected)
+        [InlineData("TenantId", "initech-id", "initech", true)]
+        [InlineData("TenantId", "lol-id", "lol", true)]
+        [InlineData("TenantId", "initech-id-not-exist", null, true)]
+        [InlineData("Tenant-Id", "initech-id", null, true)]
+        [InlineData("TenantId", "initech-id", "initech", false)]
+        [InlineData("TenantId", "lol-id", "lol", false)]
+        [InlineData("TenantId", "initech-id-not-exist", null, false)]
+        [InlineData("Tenant-Id", "initech-id", null, false)]
+        public async Task ReturnExpectedIdentifierFromHostAsync(string tenantClaimName, string tenantClaimValue, string expected, bool injectConfiguration)
         {
-            IWebHostBuilder hostBuilder = GetTestHostBuilder(tenantClaimName, tenantClaimValue);
+            IWebHostBuilder hostBuilder = GetTestHostBuilder(tenantClaimName, tenantClaimValue, injectConfiguration);
 
             using (var server = new TestServer(hostBuilder))
             {
@@ -107,14 +113,35 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                 Assert.Equal(expected, response);
             }
         }
-        private static IWebHostBuilder GetTestHostBuilder(string tenantClaimName, string tenantClaimValue)
+
+        private static IWebHostBuilder GetTestHostBuilder(string tenantClaimName, string tenantClaimValue, bool injectConfiguration)
         {
             return new WebHostBuilder()
+                 .ConfigureAppConfiguration((hostContext, configApp) =>
+                 {
+                     if (injectConfiguration)
+                     {
+                         configApp.AddInMemoryCollection(SharedMock.NormalConfig);
+                     }
+                 })
                 .ConfigureServices((ctx, services) =>
                 {
                     var logger = new Mock<ILogger<ClaimsStrategy>>();
                     services.AddScoped(sp => logger.Object);
-                    services.AddMultiTenant().WithStrategy<ClaimsStrategy>(ServiceLifetime.Scoped, "TenantId").WithInMemoryStore();
+
+                    if (injectConfiguration)
+                    {
+                        services.AddMultiTenant()
+                            .WithClaimsStrategy(ctx.Configuration.GetSection("TenantConfiguration"))
+                            .WithInMemoryStore();
+                    }
+                    else
+                    {
+                        services.AddMultiTenant()
+                            .WithClaimsStrategy("TenantId")
+                            .WithInMemoryStore();
+                    }
+
                     services.AddMvc();
                 })
                 .Configure(app =>

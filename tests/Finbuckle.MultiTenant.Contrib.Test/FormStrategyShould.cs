@@ -13,19 +13,12 @@ using System.Net.Http;
 using System.Collections.Generic;
 using System.Linq;
 using Finbuckle.MultiTenant.Contrib.Strategies;
+using Finbuckle.MultiTenant.Contrib.Strategies.Test.Mock;
 
 namespace Finbuckle.MultiTenant.Contrib.Test
 {
     public class FormStrategyShould
     {
-        private static FormStrategyConfiguration GetFormStrategyConfiguration => new FormStrategyConfiguration()
-        {
-            Parameters = new List<FormStrategyParameter>()
-            {
-                new FormStrategyParameter(){ Controller = "Account", Action = "Login", Name = "TenantCode", Type = FormStrategyParameterType.Id },
-                new FormStrategyParameter(){ Controller = "Account", Action = "Register", Name = "TenantCode", Type = FormStrategyParameterType.Id }
-            }
-        };
         public static List<KeyValuePair<string, string>> ToFormPostData(Dictionary<string, string> formPostBodyData)
         {
             var result = new List<KeyValuePair<string, string>>();
@@ -37,6 +30,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             return result;
         }
+ 
         [Theory]
         [InlineData("/account/login", "initech", true, "initech-id")]
         [InlineData("/account/register", "initech", true, "initech-id")]
@@ -71,6 +65,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                 Assert.Equal(expected, responseString);
             }
         }
+ 
         private static IMultiTenantStore PopulateTestStore(IMultiTenantStore store)
         {
             store.TryAddAsync(new TenantInfo("initech-id", "initech", "Initech", "connstring", null)).Wait();
@@ -78,32 +73,33 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             return store;
         }
+  
         private static IWebHostBuilder GetTestHostBuilder(string routePattern, bool injectConfiguration)
         {
             return new WebHostBuilder()
                  .ConfigureAppConfiguration((hostContext, configApp) =>
                  {
-                     var projectDir = Directory.GetCurrentDirectory();
-                     var configPath = Path.Combine(projectDir, "formStrategySettings.json");
-                     configApp.AddJsonFile(configPath, optional: false, reloadOnChange: true);
+                     configApp.AddInMemoryCollection(SharedMock.NormalConfig);
                  })
                 .ConfigureServices((ctx, services) =>
                 {
+                    
                     var logger = new Mock<ILogger<FormStrategy>>();
                     services.AddScoped(sp => logger.Object);
 
                     if (injectConfiguration)
                     {
-                        services.Configure<FormStrategyConfiguration>(ctx.Configuration.GetSection("FormStrategyConfiguration"));
-
                         services.AddMultiTenant()
-                            .WithStrategy<FormStrategy>(ServiceLifetime.Scoped)
+                            .WithFormStrategy(ctx.Configuration.GetSection("TenantConfiguration:FormStrategyConfiguration"))
                             .WithInMemoryStore();
                     }
                     else
                     {
+                        var c2 = new FormStrategyConfiguration();
+                        ctx.Configuration.GetSection("TenantConfiguration:FormStrategyConfiguration").Bind(c2);
+
                         services.AddMultiTenant()
-                            .WithStrategy<FormStrategy>(ServiceLifetime.Scoped, GetFormStrategyConfiguration)
+                            .WithStrategy<FormStrategy>(ServiceLifetime.Scoped, c2)
                             .WithInMemoryStore();
                     }
 

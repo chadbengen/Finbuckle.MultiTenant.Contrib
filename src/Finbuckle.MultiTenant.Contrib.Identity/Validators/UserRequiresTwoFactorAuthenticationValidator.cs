@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace Finbuckle.MultiTenant.Contrib.Identity.Validators
@@ -7,12 +8,12 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Validators
         where TUser : class
     {
         private readonly ITenantContext _tenantContext;
-        private readonly IRequireTwoFactorAuthenticationFactory _factory;
+        private readonly IRequireTwoFactorAuthenticationFactory _2faRequiredFactory;
 
         public UserRequiresTwoFactorAuthenticationValidator(ITenantContext tenantContext, IRequireTwoFactorAuthenticationFactory factory)
         {
             _tenantContext = tenantContext;
-            _factory = factory;
+            _2faRequiredFactory = factory;
         }
 
         public Task<IdentityResult> ValidateAsync(UserManager<TUser> manager, TUser user)
@@ -31,7 +32,7 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Validators
                     throw new MultiTenantException("Tenant is not resolved and is missing.");
                 }
 
-                var isRequired = _factory.IsRequired(_tenantContext.Tenant);
+                var isRequired = _2faRequiredFactory.IsRequired(_tenantContext.Tenant);
 
                 if (isRequired && !identityUser.TwoFactorEnabled)
                 {

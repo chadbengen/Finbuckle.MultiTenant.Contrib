@@ -23,6 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Identity.MultiTenant\Finbuckle.MultiTenant.Contrib.Identity.csproj" />
+    <ProjectReference Include="..\..\src\Finbuckle.MultiTenant.Contrib.Identity\Finbuckle.MultiTenant.Contrib.Identity.csproj" />
   </ItemGroup>
 </Project>

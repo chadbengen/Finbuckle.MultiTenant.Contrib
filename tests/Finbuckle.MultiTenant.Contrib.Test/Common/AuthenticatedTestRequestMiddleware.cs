@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace Finbuckle.MultiTenant.Contrib.Test
+namespace Finbuckle.MultiTenant.Contrib.Strategies.Test.Common
 {
     public class AuthenticatedTestRequestMiddleware
     {

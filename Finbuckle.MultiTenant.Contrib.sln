@@ -11,20 +11,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D98E1B39-F1D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5C66BB21-BA5F-405B-89AA-E734B560A4BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Test.csproj", "{21A14485-1AAC-4FD3-A481-DA319A86B1BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Strategies.Test.csproj", "{21A14485-1AAC-4FD3-A481-DA319A86B1BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDF63DBE-5186-4CC8-B301-2622F1F7AEE3}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity", "src\Finbuckle.MultiTenant.Contrib.Identity\Finbuckle.MultiTenant.Contrib.Identity.csproj", "{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Identity", "src\Finbuckle.MultiTenant.Contrib.Identity\Finbuckle.MultiTenant.Contrib.Identity.csproj", "{3E5FAC0C-F22F-4F37-9D74-10479E0F440C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Identity.Test", "tests\Finbuckle.MultiTenant.Contrib.Identity.Test\Finbuckle.MultiTenant.Contrib.Identity.Test.csproj", "{6824B52C-1043-4283-9CF6-500DD0E5BACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Identity.Test", "tests\Finbuckle.MultiTenant.Contrib.Identity.Test\Finbuckle.MultiTenant.Contrib.Identity.Test.csproj", "{6824B52C-1043-4283-9CF6-500DD0E5BACF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.IdentityServer", "src\Finbuckle.MultiTenant.Contrib.IdentityServer\Finbuckle.MultiTenant.Contrib.IdentityServer.csproj", "{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.IdentityServer", "src\Finbuckle.MultiTenant.Contrib.IdentityServer\Finbuckle.MultiTenant.Contrib.IdentityServer.csproj", "{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.Strategies", "src\Finbuckle.MultiTenant.Contrib.Abstractions\Finbuckle.MultiTenant.Contrib.Strategies.csproj", "{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies", "src\Finbuckle.MultiTenant.Contrib.Abstractions\Finbuckle.MultiTenant.Contrib.Strategies.csproj", "{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

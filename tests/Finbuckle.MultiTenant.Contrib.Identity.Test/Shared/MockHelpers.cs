@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -62,12 +64,16 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Test.Shared
                 null);
         }
 
-        public static ITenantContext TestTenantContext() 
-        { 
-            var mock = new Mock<ITenantContext>();
-            mock.Setup(m => m.TenantClaimName).Returns("TenantId");
-
-            return mock.Object;
-        }
+        public static TenantConfigurations TestTenantConfigurations =>
+            new TenantConfigurations
+            (
+                new List<ITenantConfiguration>() 
+                {
+                    new TenantConfiguration(){Key = Constants.TenantClaimName, Value = "TenantId" },
+                    new TenantConfiguration(){Key = Constants.MultiTenantEnabled, Value = "true" },
+                    new TenantConfiguration(){Key = Constants.UseTenantCode, Value = "true" },
+                    new TenantConfiguration(){Key = Constants.IsActive, Value = "true" }
+                }
+            );
     }
 }
