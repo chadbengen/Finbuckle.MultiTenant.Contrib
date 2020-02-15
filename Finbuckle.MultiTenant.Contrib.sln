@@ -11,7 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D98E1B39-F1D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{5C66BB21-BA5F-405B-89AA-E734B560A4BF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Strategies.Test.csproj", "{21A14485-1AAC-4FD3-A481-DA319A86B1BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies.Test", "tests\Finbuckle.MultiTenant.Contrib.Strategies.Test\Finbuckle.MultiTenant.Contrib.Strategies.Test.csproj", "{21A14485-1AAC-4FD3-A481-DA319A86B1BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDF63DBE-5186-4CC8-B301-2622F1F7AEE3}"
 	ProjectSection(SolutionItems) = preProject
