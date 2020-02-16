@@ -21,5 +21,12 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.AddProfileService<MultiTenantProfileService<TUser>>();
             return builder;
         }
+
+        public static IServiceCollection AddTenantNotRequiredForIdentityServerEndpoints(this IServiceCollection services)
+        {
+            services.TryAddValidateTenantRequirement();
+            services.AddSingleton<IValidateTenantRequirement, TenantNotRequiredForIdentityServerEndpoints>();
+            return services;
+        }
     }
 }
