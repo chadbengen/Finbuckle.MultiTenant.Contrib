@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
 using Xunit;
 
-namespace Finbuckle.MultiTenant.Contrib.Test
+namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
 {
     /// <summary>
     /// Verifies the structure of the in memory configuration returns valid results.

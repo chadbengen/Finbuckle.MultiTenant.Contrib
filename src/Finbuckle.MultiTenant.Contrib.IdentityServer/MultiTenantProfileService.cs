@@ -20,7 +20,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
 
         public MultiTenantProfileService(UserManager<TUser> userManager, 
             IUserClaimsPrincipalFactory<TUser> claimsFactory, 
-            ILogger<ProfileService<TUser>> logger,
+            ILogger<MultiTenantProfileService<TUser>> logger,
             TenantConfigurations tenantConfigurations) : base(userManager, claimsFactory, logger)
         {
             _tenantClaimName = tenantConfigurations.TenantClaimName();

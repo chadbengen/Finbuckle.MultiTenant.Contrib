@@ -9,7 +9,7 @@ using Microsoft.Extensions.Configuration.Memory;
 using System.Diagnostics.CodeAnalysis;
 using System;
 
-namespace Finbuckle.MultiTenant.Contrib.Test
+namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
 {
     /// <summary>
     /// Tests different ways of binding and injecting configuration settings. 
@@ -199,7 +199,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var services = new ServiceCollection();
             services.AddOptions();
             services.AddTransient<TestConfigurations>();
-            
+
             var c1 = new TestConfiguration() { Key = "Name3", Value = "Value3" };
             services.AddSingleton<ITestConfiguration>(c1);
             var c2 = new TestConfiguration() { Key = "Name4", Value = "Value4" };
@@ -219,7 +219,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             Assert.Equal("Value1", t2.Configurations.First(a => a.Key == "Name1").Value);
 
             configuration["test:Name1"] = "Changed1";
-            
+
             var t3 = services.BuildServiceProvider().GetService<TestConfigurations>();
             Assert.Equal("Changed1", t3.Configurations.First(a => a.Key == "Name1").Value);
 

@@ -50,7 +50,8 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 throw new MultiTenantException($"The configuration section does not contain any valid settings for the {nameof(FormStrategyConfiguration)}.");
             }
-
+            builder.Services.TryAddTenantContext();
+            builder.Services.TryAddTenantConfigurations();
             builder.WithStrategy<FormStrategy>(ServiceLifetime.Scoped, formStrategyConfiguration);
             return builder;
         }
@@ -69,7 +70,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 throw new MultiTenantException($"The configuration section does not contain any valid settings for the {nameof(FormStrategyConfiguration)}.");
             }
-
+            builder.Services.TryAddTenantConfigurations();
             builder.Services.Configure<FormStrategyConfiguration>(configurationSection);
             builder.WithStrategy<FormStrategy>(ServiceLifetime.Scoped);
             return builder;

@@ -23,6 +23,9 @@ services.AddMultiTenant()
     .WithInMemoryStore();
 ```
 
+Alternatively, you could use the WithStrategy builder and pass in a 
+string with the tenant claim name.
+
 ## FormStrategy
 The FormStrategy adds a strategy for resolving the tenant using form values provided 
 by the client.  This is useful if the desired strategy is to use a login screen
@@ -44,6 +47,9 @@ services.AddMultiTenant()
     .WithFormStrategy(ctx.Configuration.GetSection("TenantConfiguration:FormStrategyConfiguration"))
     .WithInMemoryStore();
 ``` 
+
+Alternatively, you could use the WithStrategy builder and pass in the
+FormStrategyConfiguration object.
 
 ### FormStrategyConfiguration
 Application settings need to be defined for how and when the FormStrategy resolves
