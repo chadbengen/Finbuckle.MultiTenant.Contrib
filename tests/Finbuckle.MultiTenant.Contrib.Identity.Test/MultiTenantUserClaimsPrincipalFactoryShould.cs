@@ -1,4 +1,5 @@
-﻿using Finbuckle.MultiTenant.Contrib.Identity.Test.Shared;
+﻿using Finbuckle.MultiTenant.Contrib.Extensions;
+using Finbuckle.MultiTenant.Contrib.Identity.Test.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -23,10 +24,10 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Test
             var roleManager = MockHelpers.MockRoleManager<PocoRole>().Object;
             var options = new Mock<IOptions<IdentityOptions>>();
             Assert.Throws<ArgumentNullException>("optionsAccessor",
-                () => new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager, roleManager, options.Object, MockHelpers.TestTenantContext()));
+                () => new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager, roleManager, options.Object, MockHelpers.TestTenantConfigurations));
             var identityOptions = new IdentityOptions();
             options.Setup(a => a.Value).Returns(identityOptions);
-            var factory = new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager, roleManager, options.Object, MockHelpers.TestTenantContext());
+            var factory = new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager, roleManager, options.Object, MockHelpers.TestTenantConfigurations);
             await Assert.ThrowsAsync<ArgumentNullException>("user",
                 async () => await factory.CreateAsync(null));
         }
@@ -87,7 +88,7 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Test
             options.Setup(a => a.Value).Returns(identityOptions);
             var roleObject = roleManager.Object;
 
-            var factory = new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager.Object, roleManager.Object, options.Object, MockHelpers.TestTenantContext());
+            var factory = new MultiTenantUserClaimsPrincipalFactory<PocoUser, PocoRole>(userManager.Object, roleManager.Object, options.Object, MockHelpers.TestTenantConfigurations);
 
             // Act #1
             await Assert.ThrowsAsync<MultiTenantException>(async () => await factory.CreateAsync(user));
@@ -123,8 +124,8 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Test
             {
                 Assert.Equal(supportRoleClaims, claims.Any(c => c.Type == cl.Type && c.Value == cl.Value));
             }
-            Assert.Contains(claims, c => c.Type == MockHelpers.TestTenantContext().TenantClaimName);
-            Assert.Equal(user.TenantId, claims.First(c => c.Type == MockHelpers.TestTenantContext().TenantClaimName).Value);
+            Assert.Contains(claims, c => c.Type == MockHelpers.TestTenantConfigurations.TenantClaimName());
+            Assert.Equal(user.TenantId, claims.First(c => c.Type == MockHelpers.TestTenantConfigurations.TenantClaimName()).Value);
 
             userManager.VerifyAll();
             roleManager.VerifyAll();

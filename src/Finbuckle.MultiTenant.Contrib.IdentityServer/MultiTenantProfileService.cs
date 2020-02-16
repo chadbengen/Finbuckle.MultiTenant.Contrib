@@ -7,20 +7,23 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
+using Finbuckle.MultiTenant.Contrib.Extensions;
 
 namespace Finbuckle.MultiTenant.Contrib.IdentityServer
 {
     public class MultiTenantProfileService<TUser> : ProfileService<TUser>
         where TUser : class
     {
-        private readonly ITenantContext _tenantContext;
+        private readonly string _tenantClaimName;
 
         public MultiTenantProfileService(UserManager<TUser> userManager, 
             IUserClaimsPrincipalFactory<TUser> claimsFactory, 
             ILogger<ProfileService<TUser>> logger,
-            ITenantContext tenantContext) : base(userManager, claimsFactory, logger)
+            TenantConfigurations tenantConfigurations) : base(userManager, claimsFactory, logger)
         {
-            _tenantContext = tenantContext;
+            _tenantClaimName = tenantConfigurations.TenantClaimName();
         }
 
         public override async Task GetProfileDataAsync(ProfileDataRequestContext context)
@@ -34,7 +37,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
 
             if (user is IHaveTenantId)
             {
-                tenantClaim = new Claim(_tenantContext.TenantClaimName, ((IHaveTenantId)user).TenantId);
+                tenantClaim = new Claim(_tenantClaimName, ((IHaveTenantId)user).TenantId);
             }
             if (user == null)
             {
@@ -57,5 +60,4 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
             }
         }
     }
-
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+using Finbuckle.MultiTenant.Contrib.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,16 +11,18 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
     public class ClaimsStrategy : IMultiTenantStrategy
     {
         private readonly ILogger<ClaimsStrategy> _logger;
-        private readonly string _tenantIdClaim;
+        private readonly string _tenantClaimName;
 
-        public ClaimsStrategy(ILogger<ClaimsStrategy> logger, string tenantIdClaim)
+        // TODO: Should this use the TenantClaimConfiguration in the Contrib project and require a dependency?
+        public ClaimsStrategy(ILogger<ClaimsStrategy> logger, TenantConfigurations tenantConfigurations)
         {
             _logger = logger;
-            _tenantIdClaim = tenantIdClaim ?? "TenantId";
+            _tenantClaimName = tenantConfigurations.TenantClaimName();
 
-            if (tenantIdClaim == null)
+            if (_tenantClaimName == null)
             {
-                _logger.LogDebug($"TenantIdClaim was not provided.  Using default of {_tenantIdClaim}.");
+                _tenantClaimName = "TenantId";
+                _logger.LogDebug($"TenantClaimName configuration is not set.  Using default: {_tenantClaimName}.");
             }
         }
 
@@ -30,7 +34,7 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
             var httpContext = context as HttpContext;
 
-            var tenantId = httpContext?.User?.FindFirst(_tenantIdClaim)?.Value;
+            var tenantId = httpContext?.User?.FindFirst(_tenantClaimName)?.Value;
 
             if (!string.IsNullOrWhiteSpace(tenantId))
             {

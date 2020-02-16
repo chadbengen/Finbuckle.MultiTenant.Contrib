@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
+    <Description>Contribution functionality for Finbuckle.MultiTenant adding AspNetIdentity helpers.</Description>
+    <Version>2.0.0-alpha</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Abstractions\ITenantClaimConfiguration.cs" />
+    <Compile Remove="MultiTenantUserClaimsPrincipalFactoryConfig.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Finbuckle.MultiTenant.Core" Version="5.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Finbuckle.MultiTenant.Contrib\Finbuckle.MultiTenant.Contrib.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,6 +1,7 @@
 ﻿using Finbuckle.MultiTenant;
 using System;
 using Finbuckle.MultiTenant.Contrib.Extensions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
 
 namespace Finbuckle.MultiTenant.Contrib.Extensions
 {
@@ -11,21 +12,20 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
     {
         public static bool? GetRequiresTwoFactorAuthentication(this TenantInfo tenantInfo)
         {
-            return tenantInfo.Items.GetRequiresTwoFactorAuthentication();
+            return tenantInfo.Items.TryGetValue(Constants.RequiresTwoFactorAuthentication, out var requires2FA) ? (bool?)requires2FA : null;
         }
         public static void SetRequiresTwoFactorAuthentication(this TenantInfo tenantInfo, bool? value)
         {
-            tenantInfo.Items.SetRequiresTwoFactorAuthentication(value);
+            tenantInfo.Items.Set(Constants.RequiresTwoFactorAuthentication, value);
         }
-
 
         public static bool? GetIsActive(this TenantInfo tenantInfo)
         {
-            return tenantInfo.Items.GetIsActive();
+            return tenantInfo.Items.TryGetValue(Constants.IsActive, out var isActive) ? (bool?)isActive : null;
         }
         public static void SetIsActive(this TenantInfo tenantInfo, bool? value)
         {
-            tenantInfo.Items.SetIsActive(value);
+            tenantInfo.Items.Set(Constants.IsActive, value);
         }
     }
 }

@@ -17,6 +17,7 @@ using CareComplete.MultiTenant.Stores;
 using System;
 using Finbuckle.MultiTenant.Contrib.EFCoreStore;
 using Microsoft.Extensions.Configuration;
+using Finbuckle.MultiTenant.Contrib.Configuration;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -31,11 +32,21 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <returns>The same MultiTenantBuilder passed into the method.</returns>
         public static FinbuckleMultiTenantBuilder WithDefaultEFCacheStore(this FinbuckleMultiTenantBuilder builder, IConfigurationSection configurationSection, Action<DbContextOptionsBuilder> options)
         {
-            builder.Services.Configure<MultiTenantConfiguration>(configurationSection);
+            builder.Services.TryAddTenantConfigurations(configurationSection);
             builder.Services.AddDbContext<DefaultTenantDbContext>(options); // Note, will not override existing context if already added.
             return builder.WithStore<DefaultEFCacheStore>(ServiceLifetime.Scoped);
         }
-        
+        /// <summary>
+        /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/> and caches tenants for a configurable period of time.
+        /// </summary>
+        /// <returns>The same MultiTenantBuilder passed into the method.</returns>
+        public static FinbuckleMultiTenantBuilder WithDefaultEFCacheStore(this FinbuckleMultiTenantBuilder builder, int cacheMinutes, Action<DbContextOptionsBuilder> options)
+        {
+            builder.Services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = Constants.CacheMinutes, Value = cacheMinutes });
+            builder.Services.TryAddTenantConfigurations();
+            builder.Services.AddDbContext<DefaultTenantDbContext>(options); // Note, will not override existing context if already added.
+            return builder.WithStore<DefaultEFCacheStore>(ServiceLifetime.Scoped);
+        }
         /// <summary>
         /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/>.
         /// </summary>
