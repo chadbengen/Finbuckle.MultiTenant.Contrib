@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.IdentityServer", "src\Finbuckle.MultiTenant.Contrib.IdentityServer\Finbuckle.MultiTenant.Contrib.IdentityServer.csproj", "{0FD63076-E44E-4D15-8E36-F8FB4F9BF947}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies", "src\Finbuckle.MultiTenant.Contrib.Abstractions\Finbuckle.MultiTenant.Contrib.Strategies.csproj", "{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Strategies", "src\Finbuckle.MultiTenant.Contrib.Strategies\Finbuckle.MultiTenant.Contrib.Strategies.csproj", "{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Test.csproj", "{DC78CA5D-A386-4516-A06A-7A5B74CD1B2C}"
 EndProject
