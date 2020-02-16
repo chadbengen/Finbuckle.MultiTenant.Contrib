@@ -153,9 +153,11 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
                     {
                         endpoints.Map("{controller}/{action}/{id?}", async context =>
                         {
-                            if (context.GetMultiTenantContext().TenantInfo != null)
+                            var tenantContext = context.RequestServices.GetService<TenantContext>();
+
+                            if (tenantContext?.Tenant != null)
                             {
-                                await context.Response.WriteAsync(context.GetMultiTenantContext().TenantInfo.Identifier);
+                                await context.Response.WriteAsync(tenantContext.Tenant.Identifier);
                             }
                         });
                     });

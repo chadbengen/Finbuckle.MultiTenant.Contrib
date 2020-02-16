@@ -27,17 +27,13 @@ namespace Microsoft.Extensions.DependencyInjection
 
         public static IServiceCollection TryAddTenantConfigurations(this IServiceCollection services)
         {
+            services.TryAddTenantContext();
             services.TryAddTransient<TenantConfigurations>();
             return services;
         }
         public static IServiceCollection TryAddTenantConfigurations(this IServiceCollection services, IConfigurationSection configuration)
         {
-            var items = 
-              configuration
-                  .GetChildren()
-                  .Select(x => new TenantConfiguration() { Key = x.Key, Value = x.Value })
-                  .ToList();
-            
+            services.TryAddTenantContext();
             services.Configure<TenantAppSettingsConfigurations>(c =>
                 c.Items =
                     configuration

@@ -15,7 +15,7 @@ using System.Linq;
 using Finbuckle.MultiTenant.Contrib.Strategies;
 using Finbuckle.MultiTenant.Contrib.Strategies.Test.Mock;
 
-namespace Finbuckle.MultiTenant.Contrib.Test
+namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
 {
     public class FormStrategyShould
     {
@@ -30,7 +30,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             return result;
         }
- 
+
         [Theory]
         [InlineData("/account/login", "initech", true, "initech-id")]
         [InlineData("/account/register", "initech", true, "initech-id")]
@@ -58,14 +58,26 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                 {
                     Content = new FormUrlEncodedContent(ToFormPostData(new Dictionary<string, string>() { { "TenantCode", tenantCode } }))
                 };
-               
+
                 var response = await client.SendAsync(httpRequestMessage);
                 string responseString = await response.Content.ReadAsStringAsync();
                 responseString = string.IsNullOrWhiteSpace(responseString) ? null : responseString;
                 Assert.Equal(expected, responseString);
             }
         }
- 
+
+        [Fact]
+        public void ReturnException()
+        {
+            var configuration = SharedMock.GetConfigurationBuilder(SharedMock.NormalConfig).Build();
+            var services = new ServiceCollection();
+
+            var ex = Assert.Throws<MultiTenantException>(() =>
+                services.AddMultiTenant().WithFormStrategy(configuration.GetSection("TenantConfiguration")).WithInMemoryStore());
+
+            Assert.Equal($"The configuration section does not contain any valid settings for the {nameof(FormStrategyConfiguration)}.", ex.Message);
+        }
+    
         private static IMultiTenantStore PopulateTestStore(IMultiTenantStore store)
         {
             store.TryAddAsync(new TenantInfo("initech-id", "initech", "Initech", "connstring", null)).Wait();
@@ -73,7 +85,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             return store;
         }
-  
+
         private static IWebHostBuilder GetTestHostBuilder(string routePattern, bool injectConfiguration)
         {
             return new WebHostBuilder()
@@ -83,7 +95,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                  })
                 .ConfigureServices((ctx, services) =>
                 {
-                    
+
                     var logger = new Mock<ILogger<FormStrategy>>();
                     services.AddScoped(sp => logger.Object);
 
