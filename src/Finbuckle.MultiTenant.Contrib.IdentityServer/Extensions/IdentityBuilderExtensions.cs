@@ -17,14 +17,14 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IIdentityServerBuilder AddMultiTenantProfileService<TUser>(this IIdentityServerBuilder builder, string tenantClaimName) where TUser : class
         {
             builder.Services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = Constants.TenantClaimName, Value = tenantClaimName });
-            builder.Services.TryAddTenantConfigurations();
+            builder.Services.AddTenantConfigurations();
             builder.AddProfileService<MultiTenantProfileService<TUser>>();
             return builder;
         }
 
         public static IServiceCollection AddTenantNotRequiredForIdentityServerEndpoints(this IServiceCollection services)
         {
-            services.TryAddValidateTenantRequirement();
+            services.AddValidateTenantRequirement();
             services.AddSingleton<IValidateTenantRequirement, TenantNotRequiredForIdentityServerEndpoints>();
             return services;
         }

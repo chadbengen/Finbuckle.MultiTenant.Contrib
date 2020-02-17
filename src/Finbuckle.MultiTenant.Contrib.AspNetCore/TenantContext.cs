@@ -1,13 +1,9 @@
 ﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
 using Finbuckle.MultiTenant.Contrib.Configuration;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
+using Finbuckle.MultiTenant.Contrib.Extensions;
 
-namespace Finbuckle.MultiTenant.Contrib
+namespace Finbuckle.MultiTenant.Contrib.AspNetCore
 {
     public class TenantContext : ITenantContext
     {
@@ -26,9 +22,9 @@ namespace Finbuckle.MultiTenant.Contrib
 
         public TenantInfo Tenant => _httpContextAccessor?.HttpContext?.GetMultiTenantContext()?.TenantInfo;
         public bool TenantResolved => !string.IsNullOrWhiteSpace(Tenant?.Id);
-        public bool TenantResolutionRequired => _validateTenantRequirement?.TenantIsRequired() ?? true;
+        public bool TenantResolutionRequired => _validateTenantRequirement?.TenantIsRequired() ?? IsMultiTenantEnabled;
         public string TenantResolutionStrategy => _httpContextAccessor.HttpContext?.GetMultiTenantContext()?.StrategyInfo?.StrategyType?.Name ?? "Unknown";
-
+        public bool IsMultiTenantEnabled => TenantConfigurations?.IsMultiTenantEnabled() ?? false;
         public TenantConfigurations TenantConfigurations { get; }
 
         public void SetTenantId(IHaveTenantId obj)

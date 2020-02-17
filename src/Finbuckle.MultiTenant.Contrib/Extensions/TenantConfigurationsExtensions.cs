@@ -14,7 +14,7 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
         }
         public static string TenantClaimName(this TenantConfigurations configurations)
         {
-            return configurations.Get<string>(Constants.TenantClaimName);
+            return configurations.Get<string>(Constants.TenantClaimName) ?? "TenantId";
         }
         public static int CacheMinutes(this TenantConfigurations configurations)
         {

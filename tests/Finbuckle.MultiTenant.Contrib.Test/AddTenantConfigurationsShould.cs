@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Finbuckle.MultiTenant.Contrib.Test
 {
-    public class TryAddTenantConfigurationsShould
+    public class AddTenantConfigurationsShould
     {
         [Fact]
         public void Register()
@@ -16,7 +16,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             var services = new ServiceCollection();
 
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
             var configurations = services.BuildServiceProvider().GetService<TenantConfigurations>();
             var items = configurations.Items;
@@ -35,7 +35,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             var services = new ServiceCollection();
 
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
             var configurations = services.BuildServiceProvider().GetService<TenantConfigurations>();
 
@@ -53,7 +53,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             var services = new ServiceCollection();
 
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
             services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = "Manual1", Value = "Value1" });
 
@@ -69,7 +69,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
 
             var services = new ServiceCollection();
 
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
             services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = Constants.TenantClaimName, Value = "TenantId-2" });
 
@@ -80,13 +80,29 @@ namespace Finbuckle.MultiTenant.Contrib.Test
         }
 
         [Fact]
+        public void Use_Last_Registered_When_Registered_2x()
+        {
+            var configuration = SharedMock.GetConfigurationBuilder(SharedMock.ConfigDic).Build();
+
+            var services = new ServiceCollection();
+
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfigurationDuplicate"));
+
+            var configurations = services.BuildServiceProvider().GetService<TenantConfigurations>();
+
+            Assert.Single(configurations.Items);
+            Assert.Equal("TenantIdDuplicate", configurations.Items.First(a => a.Key == Constants.TenantClaimName).Value);
+        }
+
+        [Fact]
         public void Get_Constants()
         {
             var configuration = SharedMock.GetConfigurationBuilder(SharedMock.ConfigDic).Build();
 
             var services = new ServiceCollection();
 
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
             var configurations = services.BuildServiceProvider().GetService<TenantConfigurations>();
 

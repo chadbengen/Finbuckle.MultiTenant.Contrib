@@ -17,6 +17,16 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
 
             return configuration;
         }
+        public static Dictionary<string, string> ConfigurationSectionExTrue =>
+            new Dictionary<string, string>()
+            {
+                {$"TenantConfiguration:{Constants.MultiTenantEnabled}", "true" },
+            };
+        public static Dictionary<string, string> ConfigurationSectionExFalse =>
+            new Dictionary<string, string>()
+            {
+                {$"TenantConfiguration:{Constants.MultiTenantEnabled}", "false" },
+            };
 
         public static Dictionary<string, string> ConfigDic =>
           new Dictionary<string, string>()
@@ -44,6 +54,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
                 {"FormStrategyConfiguration:Parameters:1:Action", "Register" },
                 {"FormStrategyConfiguration:Parameters:1:Name", "TenantCode" },
                 {"FormStrategyConfiguration:Parameters:1:Type", "1" },
+                {$"TenantConfigurationDuplicate:{Constants.TenantClaimName}", "TenantIdDuplicate" },
           };
 
         public static TenantConfigurations TestTenantConfigurations =>

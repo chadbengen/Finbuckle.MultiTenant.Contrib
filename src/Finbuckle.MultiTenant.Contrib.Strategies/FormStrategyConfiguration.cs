@@ -1,7 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Options;
+using System;
+using System.Collections.Generic;
 
 namespace Finbuckle.MultiTenant.Contrib
 {
+    public class OptionSnapshotFormStrategyConfiguration : IOptionsSnapshot<FormStrategyConfiguration>
+    {
+        public OptionSnapshotFormStrategyConfiguration(FormStrategyConfiguration value)
+        {
+            Value = value ?? throw new ArgumentNullException(nameof(value));
+        }
+
+        public FormStrategyConfiguration Value { get; }
+
+        public FormStrategyConfiguration Get(string name)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     /// <summary>
     /// Defines the configuration values for the <see cref="Strategies.FormStrategy"/>.
     /// </summary>

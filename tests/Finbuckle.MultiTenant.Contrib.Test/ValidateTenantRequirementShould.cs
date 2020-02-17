@@ -30,10 +30,10 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var services = new ServiceCollection();
             services.AddHttpContextAccessor();
             services.TryAddTenantContext();
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
             services.AddSingleton<IValidateTenantRequirement>(new FalseRequirement());
 
-            var context = services.BuildServiceProvider().GetService<TenantContext>();
+            var context = services.BuildServiceProvider().GetService<ITenantContext>();
             Assert.False(context.TenantResolutionRequired);
         }
         [Fact]
@@ -44,11 +44,11 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var services = new ServiceCollection();
             services.AddHttpContextAccessor();
             services.TryAddTenantContext();
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
             services.AddSingleton<IValidateTenantRequirement>(new FalseRequirement());
             services.AddSingleton<IValidateTenantRequirement>(new TrueRequirement());
 
-            var context = services.BuildServiceProvider().GetService<TenantContext>();
+            var context = services.BuildServiceProvider().GetService<ITenantContext>();
             Assert.False(context.TenantResolutionRequired);
         }
         [Fact]
@@ -59,9 +59,9 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var services = new ServiceCollection();
             services.AddHttpContextAccessor();
             services.TryAddTenantContext();
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
-            var context = services.BuildServiceProvider().GetService<TenantContext>();
+            var context = services.BuildServiceProvider().GetService<ITenantContext>();
             Assert.True(context.TenantResolutionRequired);
         }
     }

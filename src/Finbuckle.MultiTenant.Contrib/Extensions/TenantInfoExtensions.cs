@@ -1,7 +1,4 @@
-﻿using Finbuckle.MultiTenant;
-using System;
-using Finbuckle.MultiTenant.Contrib.Extensions;
-using Finbuckle.MultiTenant.Contrib.Configuration;
+﻿using Finbuckle.MultiTenant.Contrib.Configuration;
 
 namespace Finbuckle.MultiTenant.Contrib.Extensions
 {

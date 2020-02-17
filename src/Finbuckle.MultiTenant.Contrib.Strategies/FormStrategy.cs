@@ -14,25 +14,17 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
     {
         private readonly ILogger<FormStrategy> _logger;
         private readonly FormStrategyConfiguration _configuration;
-  
-        /// <summary>
-        /// Supports the custom WithStrategy implementation
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="config"></param>
-        public FormStrategy(ILogger<FormStrategy> logger, FormStrategyConfiguration config)
+
+        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config) 
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _configuration = config ?? throw new ArgumentNullException(nameof(config));
+            _configuration = config?.Value ?? throw new ArgumentNullException(nameof(config));
 
             if (!_configuration.Parameters?.Any() ?? false)
             {
                 throw new MultiTenantException($"No values were provided for the {nameof(FormStrategyConfiguration)}.");
             }
         }
-
-        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config) : this(logger, config?.Value)
-        { }
 
 
         public async Task<string> GetIdentifierAsync(object context)

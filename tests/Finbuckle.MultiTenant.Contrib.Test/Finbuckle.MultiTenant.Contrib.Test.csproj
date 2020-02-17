@@ -16,7 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Finbuckle.MultiTenant.Contrib.Abstractions\Finbuckle.MultiTenant.Contrib.Strategies.csproj" />
+    <ProjectReference Include="..\..\src\Finbuckle.MultiTenant.Contrib.AspNetCore\Finbuckle.MultiTenant.Contrib.AspNetCore.csproj" />
+    <ProjectReference Include="..\..\src\Finbuckle.MultiTenant.Contrib.Strategies\Finbuckle.MultiTenant.Contrib.Strategies.csproj" />
     <ProjectReference Include="..\..\src\Finbuckle.MultiTenant.Contrib\Finbuckle.MultiTenant.Contrib.csproj" />
   </ItemGroup>
 
