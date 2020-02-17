@@ -1,5 +1,4 @@
 using Finbuckle.MultiTenant.Contrib;
-using Finbuckle.MultiTenant.Contrib.Abstractions;
 using Finbuckle.MultiTenant.Contrib.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection.Extensions;
