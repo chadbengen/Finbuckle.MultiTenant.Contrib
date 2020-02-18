@@ -39,6 +39,17 @@ namespace Microsoft.Extensions.DependencyInjection
         /// <summary>
         /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/> and caches tenants for a configurable period of time.
         /// </summary>
+        /// <param name="builder"></param>
+        /// <param name="options"></param>
+        /// <returns></returns>
+        public static FinbuckleMultiTenantBuilder WithDefaultEFCacheStore(this FinbuckleMultiTenantBuilder builder, Action<DbContextOptionsBuilder> options)
+        {
+            builder.Services.AddDbContext<DefaultTenantDbContext>(options); // Note, will not override existing context if already added.
+            return builder.WithStore<DefaultEFCacheStore>(ServiceLifetime.Scoped);
+        }
+        /// <summary>
+        /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/> and caches tenants for a configurable period of time.
+        /// </summary>
         /// <returns>The same MultiTenantBuilder passed into the method.</returns>
         public static FinbuckleMultiTenantBuilder WithDefaultEFCacheStore(this FinbuckleMultiTenantBuilder builder, int cacheMinutes, Action<DbContextOptionsBuilder> options)
         {

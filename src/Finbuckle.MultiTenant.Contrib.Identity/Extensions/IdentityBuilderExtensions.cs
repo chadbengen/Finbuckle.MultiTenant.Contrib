@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder.AddDefaultMultiTenantIdentityServices<TUserIdentity, TUserIdentityRole, TUserStore, TRoleStore>(true);
         }
     }
-    
+
     public static class IdentityBuilderExtensions
     {
         public static IdentityBuilder AddDefaultMultiTenantIdentityServices
@@ -47,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 builder.AddMultiTenantIdentityStores<TUserStore, TRoleStore>();
                 builder.AddMultiTenantUserClaimsPrincipalFactory<TUserIdentity, TUserIdentityRole>();
                 builder.AddUserValidator<TUserIdentity, UserRequiresTenantIdValidator<TUserIdentity>>();
-                builder.AddUserValidator<TUserIdentity, UserRequiresTwoFactorAuthenticationValidator<TUserIdentity>>();
+                builder.AddUserValidatorRequires2fa<TUserIdentity, UserRequiresTwoFactorAuthenticationValidator<TUserIdentity>, DefaultRequireTwoFactorAuthenticationFactory>();
                 builder.AddRoleValidator<TUserIdentityRole, RoleRequiresTenantIdValidator<TUserIdentityRole>>();
             }
             return builder;
@@ -62,7 +62,7 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder;
         }
 
-        public static IdentityBuilder AddMultiTenantUserClaimsPrincipalFactory<TUserIdentity, TUserIdentityRole>(this IdentityBuilder builder )
+        public static IdentityBuilder AddMultiTenantUserClaimsPrincipalFactory<TUserIdentity, TUserIdentityRole>(this IdentityBuilder builder)
             where TUserIdentity : class
             where TUserIdentityRole : class
         {
@@ -74,6 +74,15 @@ namespace Microsoft.Extensions.DependencyInjection
            where TValidator : class, IUserValidator<TUser>
         {
             builder.Services.AddScoped(typeof(IUserValidator<TUser>), typeof(TValidator));
+            return builder;
+        }
+        public static IdentityBuilder AddUserValidatorRequires2fa<TUser, TValidator, TRequires2fa>(this IdentityBuilder builder)
+           where TUser : class
+           where TValidator : class, IUserValidator<TUser>
+           where TRequires2fa : class, IRequireTwoFactorAuthenticationFactory
+        {
+            builder.AddUserValidator<TUser, TValidator>();
+            builder.Services.AddSingleton<IRequireTwoFactorAuthenticationFactory, TRequires2fa>();
             return builder;
         }
         public static IdentityBuilder AddRoleValidator<TRole, TValidator>(this IdentityBuilder builder)

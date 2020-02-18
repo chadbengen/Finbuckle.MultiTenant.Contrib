@@ -1,9 +1,16 @@
 ﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
 using Microsoft.AspNetCore.Identity;
+using System;
 using System.Threading.Tasks;
+using Finbuckle.MultiTenant.Contrib.Extensions;
 
 namespace Finbuckle.MultiTenant.Contrib.Identity.Validators
 {
+    public class DefaultRequireTwoFactorAuthenticationFactory : IRequireTwoFactorAuthenticationFactory
+    {
+        public Func<TenantInfo, bool> IsRequired => (tenant) => tenant.GetRequiresTwoFactorAuthentication() ?? true;
+    }
+
     public class UserRequiresTwoFactorAuthenticationValidator<TUser> : IUserValidator<TUser>
         where TUser : class
     {

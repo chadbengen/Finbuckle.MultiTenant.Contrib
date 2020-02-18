@@ -4,6 +4,6 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
 {
     public interface IRequireTwoFactorAuthenticationFactory
     {
-        Func<TenantInfo, bool> IsRequired { get; set; }
+        Func<TenantInfo, bool> IsRequired { get; }
     }
 }
