@@ -29,11 +29,11 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer.Test
         {
             var userManager = MockHelpers.TestUserManager<PocoUser>(); // Shared.MockHelpers.MockUserManager<UserHasTenantId>().Object;
             var claimsPrincipalFactory = new Mock<IUserClaimsPrincipalFactory<PocoUser>>().Object;
-            var logger = new Mock<ILogger<MultiTenantProfileService<PocoUser>>>().Object;
+            var logger = new Mock<ILogger<TenantToClaimIdentityServerProfileService<PocoUser>>>().Object;
 
             var tenantConfigurations = SharedMock.TestTenantConfigurations;
 
-            var subject = new MultiTenantProfileService<PocoUser>(
+            var subject = new TenantToClaimIdentityServerProfileService<PocoUser>(
                     userManager,
                     claimsPrincipalFactory,
                     logger,
@@ -47,7 +47,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer.Test
         public async Task Issue_TenantId_Claim()
         {
             var userManager = MockHelpers.TestUserManager<PocoUser>(new NoopUserStore()); // Shared.MockHelpers.MockUserManager<UserHasTenantId>().Object;
-            var logger = new Mock<ILogger<MultiTenantProfileService<PocoUser>>>().Object;
+            var logger = new Mock<ILogger<TenantToClaimIdentityServerProfileService<PocoUser>>>().Object;
             var tenantConfigurations = SharedMock.TestTenantConfigurations;
             var claimsIdentity = new ClaimsIdentity(new List<Claim> { new Claim(JwtClaimTypes.Subject, "0") }, "Testing");
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
@@ -61,7 +61,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer.Test
                 "client",
                 new string[1] { "TenantId" });
 
-            var subject = new MultiTenantProfileService<PocoUser>(
+            var subject = new TenantToClaimIdentityServerProfileService<PocoUser>(
                     userManager,
                     claimsPrincipalFactory,
                     logger,

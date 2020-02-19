@@ -18,6 +18,7 @@ namespace Finbuckle.MultiTenant.Contrib.EFCoreStore
 {
     public class DefaultTenantDbContext : TenantDbContext<TenantEntity>
     {
+        public DefaultTenantDbContext() { }
         public DefaultTenantDbContext(DbContextOptions<DefaultTenantDbContext> options) : base(options)
         {
         }

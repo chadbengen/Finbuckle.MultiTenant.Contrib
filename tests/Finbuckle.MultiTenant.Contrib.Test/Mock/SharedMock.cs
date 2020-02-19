@@ -1,7 +1,9 @@
-﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+﻿using Bogus;
+using Finbuckle.MultiTenant.Contrib.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Moq;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
 
@@ -17,6 +19,16 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
 
             return configuration;
         }
+        public static Dictionary<string, string> ConfigurationSectionExTrue =>
+            new Dictionary<string, string>()
+            {
+                {$"TenantConfiguration:{Constants.MultiTenantEnabled}", "true" },
+            };
+        public static Dictionary<string, string> ConfigurationSectionExFalse =>
+            new Dictionary<string, string>()
+            {
+                {$"TenantConfiguration:{Constants.MultiTenantEnabled}", "false" },
+            };
 
         public static Dictionary<string, string> ConfigDic =>
           new Dictionary<string, string>()
@@ -44,6 +56,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
                 {"FormStrategyConfiguration:Parameters:1:Action", "Register" },
                 {"FormStrategyConfiguration:Parameters:1:Name", "TenantCode" },
                 {"FormStrategyConfiguration:Parameters:1:Type", "1" },
+                {$"TenantConfigurationDuplicate:{Constants.TenantClaimName}", "TenantIdDuplicate" },
           };
 
         public static TenantConfigurations TestTenantConfigurations =>
@@ -59,7 +72,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
         public static HttpContextAccessor CreateHttpContextAccessorMock()
         {
             var mock = new Mock<HttpContextAccessor>();
-           
+
             return mock.Object;
         }
         public static ClaimsIdentity GetClaimsIdentity(string tenantClaimName, string tenantClaimValue) =>
@@ -81,5 +94,16 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
 
             return store;
         }
+
+        public static TenantInfo TestTenantInfo => new Faker<TenantInfo>()
+            .RuleFor(r => r.Id, f => Guid.NewGuid().ToString())
+            .RuleFor(r => r.Identifier, f => f.Lorem.Word())
+            .RuleFor(r => r.ConnectionString, f => f.Lorem.Sentence())
+            .RuleFor(r => r.Name, f => f.Lorem.Word())
+            .RuleFor(r => r.Items, f => new Dictionary<string, object>()
+            {
+                { Constants.IsActive, "True" },
+                { Constants.RequiresTwoFactorAuthentication, "False" }
+            });
     }
 }

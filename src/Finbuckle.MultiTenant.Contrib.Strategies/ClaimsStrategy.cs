@@ -1,4 +1,5 @@
-﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+﻿using Finbuckle.MultiTenant.Contrib.Claims;
+using Finbuckle.MultiTenant.Contrib.Configuration;
 using Finbuckle.MultiTenant.Contrib.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,22 +14,6 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
         private readonly ILogger<ClaimsStrategy> _logger;
         private readonly string _tenantClaimName;
 
-        /// <summary>
-        /// Supports the custom WithStrategy implementation.
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="tenantClaimName"></param>
-        public ClaimsStrategy(ILogger<ClaimsStrategy> logger, string tenantClaimName)
-        {
-            _logger = logger;
-            _tenantClaimName = tenantClaimName;
-
-            if (_tenantClaimName == null)
-            {
-                _tenantClaimName = "TenantId";
-                _logger.LogDebug($"TenantClaimName configuration is not set.  Using default: {_tenantClaimName}.");
-            }
-        }
         public ClaimsStrategy(ILogger<ClaimsStrategy> logger, TenantConfigurations tenantConfigurations)
         {
             _logger = logger;
@@ -36,8 +21,7 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
             if (_tenantClaimName == null)
             {
-                _tenantClaimName = "TenantId";
-                _logger.LogDebug($"TenantClaimName configuration is not set.  Using default: {_tenantClaimName}.");
+                _tenantClaimName = ContribClaimTypes.TenantId;
             }
         }
 

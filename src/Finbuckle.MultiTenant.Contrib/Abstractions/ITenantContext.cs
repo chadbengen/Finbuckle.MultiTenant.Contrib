@@ -9,6 +9,7 @@ namespace Finbuckle.MultiTenant.Contrib.Abstractions
         bool TenantResolved { get; }
         bool TenantResolutionRequired { get; }
         string TenantResolutionStrategy { get; }
+        bool IsMultiTenantEnabled { get; }
         void SetTenantId(IHaveTenantId obj);
         TenantConfigurations TenantConfigurations { get; }
     }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Finbuckle.MultiTenant.Contrib.Identity.Abstractions.Stores
+namespace Finbuckle.MultiTenant.Contrib.Identity.Stores
 {
     public abstract class MultiTenantUserStore<TUser, TRole, TContext, TKey, TUserClaim, TUserRole, TUserLogin, TUserToken, TRoleClaim> :
         UserStore<TUser, TRole, TContext, TKey, TUserClaim, TUserRole, TUserLogin, TUserToken, TRoleClaim>

@@ -1,4 +1,5 @@
-﻿using Finbuckle.MultiTenant.Contrib.Configuration;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
 using Finbuckle.MultiTenant.Contrib.Strategies;
 using Finbuckle.MultiTenant.Contrib.Test.Common;
 using Finbuckle.MultiTenant.Contrib.Test.Mock;
@@ -29,9 +30,9 @@ namespace Finbuckle.MultiTenant.Contrib.Test
             var services = new ServiceCollection();
             services.AddHttpContextAccessor();
             services.TryAddTenantContext();
-            services.TryAddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
+            services.AddTenantConfigurations(configuration.GetSection("TenantConfiguration"));
 
-            var context = services.BuildServiceProvider().GetService<TenantContext>();
+            var context = services.BuildServiceProvider().GetService<ITenantContext>();
             var items = context.TenantConfigurations.Items;
 
             Assert.NotNull(items);
@@ -74,12 +75,14 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                     if (injectConfiguration)
                     {
                         services.AddMultiTenant()
-                            .WithClaimsStrategy(ctx.Configuration.GetSection("TenantConfiguration"))
+                            .WithContribTenantContext(ctx.Configuration.GetSection("TenantConfiguration"))
+                            .WithClaimsStrategy()
                             .WithInMemoryStore();
                     }
                     else
                     {
                         services.AddMultiTenant()
+                            .WithContribTenantContext()
                             .WithClaimsStrategy("TenantId")
                             .WithInMemoryStore();
                     }
@@ -95,7 +98,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test
                     {
                         endpoints.Map("{controller}/{action}/{id?}", async context =>
                         {
-                            var tenantContext = context.RequestServices.GetService<TenantContext>();
+                            var tenantContext = context.RequestServices.GetService<ITenantContext>();
                             Assert.NotNull(tenantContext);
                             Assert.NotNull(tenantContext.TenantConfigurations.Items);
                             Assert.True(tenantContext.TenantResolved);
@@ -109,33 +112,28 @@ namespace Finbuckle.MultiTenant.Contrib.Test
         }
 
         [Fact]
-        public void Resolve_With_ClaimsStrategy()
+        public void Not_Resolve_With_ClaimsStrategy()
         {
             var services = new ServiceCollection();
 
             services.AddMultiTenant().WithClaimsStrategy("TenantId").WithInMemoryStore();
 
-            var tc = services.BuildServiceProvider().GetRequiredService<TenantContext>();
+            var tc = services.BuildServiceProvider().GetService<ITenantContext>();
 
-            Assert.NotNull(tc);
-            Assert.False(tc.TenantResolved);
-            Assert.True(tc.TenantResolutionRequired);
-            Assert.Equal("Unknown", tc.TenantResolutionStrategy);
+            Assert.Null(tc);
         }
+
         [Fact]
-        public void Resolve_With_FormStrategy()
+        public void Not_Resolve_With_FormStrategy()
         {
             var configuration = SharedMock.GetConfigurationBuilder(SharedMock.ConfigDic).Build();
             var services = new ServiceCollection();
 
             services.AddMultiTenant().WithFormStrategy(configuration.GetSection("TenantConfiguration:FormStrategyConfiguration")).WithInMemoryStore();
 
-            var tc = services.BuildServiceProvider().GetRequiredService<TenantContext>();
+            var tc = services.BuildServiceProvider().GetService<ITenantContext>();
 
-            Assert.NotNull(tc);
-            Assert.False(tc.TenantResolved);
-            Assert.True(tc.TenantResolutionRequired);
-            Assert.Equal("Unknown", tc.TenantResolutionStrategy);
+            Assert.Null(tc);
         }
     }
 }

@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Finbuckle.MultiTenant.Contrib.Strategies.Test.Mock;
 using Finbuckle.MultiTenant.Contrib.Strategies.Test.Common;
+using Finbuckle.MultiTenant.Contrib.Abstractions;
 
 namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
 {
@@ -153,11 +154,11 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
                     {
                         endpoints.Map("{controller}/{action}/{id?}", async context =>
                         {
-                            var tenantContext = context.RequestServices.GetService<TenantContext>();
+                            var tenant = context.GetMultiTenantContext().TenantInfo;
 
-                            if (tenantContext?.Tenant != null)
+                            if (tenant != null)
                             {
-                                await context.Response.WriteAsync(tenantContext.Tenant.Identifier);
+                                await context.Response.WriteAsync(tenant.Identifier);
                             }
                         });
                     });

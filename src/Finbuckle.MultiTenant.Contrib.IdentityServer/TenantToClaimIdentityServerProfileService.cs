@@ -13,14 +13,14 @@ using Finbuckle.MultiTenant.Contrib.Extensions;
 
 namespace Finbuckle.MultiTenant.Contrib.IdentityServer
 {
-    public class MultiTenantProfileService<TUser> : ProfileService<TUser>
+    public class TenantToClaimIdentityServerProfileService<TUser> : ProfileService<TUser>
         where TUser : class
     {
         private readonly string _tenantClaimName;
 
-        public MultiTenantProfileService(UserManager<TUser> userManager, 
+        public TenantToClaimIdentityServerProfileService(UserManager<TUser> userManager, 
             IUserClaimsPrincipalFactory<TUser> claimsFactory, 
-            ILogger<MultiTenantProfileService<TUser>> logger,
+            ILogger<TenantToClaimIdentityServerProfileService<TUser>> logger,
             TenantConfigurations tenantConfigurations) : base(userManager, claimsFactory, logger)
         {
             _tenantClaimName = tenantConfigurations.TenantClaimName();

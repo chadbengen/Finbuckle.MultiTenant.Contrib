@@ -5,14 +5,15 @@
     <Description>Contribution base functionality for Finbuckle.MultiTenant</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
-    <Version>2.0.0-alpha-2</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <Compile Remove="TenantClaimConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Finbuckle.MultiTenant.AspNetCore" Version="5.0.0" />
+    <PackageReference Include="Finbuckle.MultiTenant.Core" Version="5.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="3.1.0" />
   </ItemGroup>
 

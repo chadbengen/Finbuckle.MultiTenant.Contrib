@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.Test", "tests\Finbuckle.MultiTenant.Contrib.Test\Finbuckle.MultiTenant.Contrib.Test.csproj", "{DC78CA5D-A386-4516-A06A-7A5B74CD1B2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.IdentityServer.Test", "tests\Finbuckle.MultiTenant.Contrib.IdentityServer.Test\Finbuckle.MultiTenant.Contrib.IdentityServer.Test.csproj", "{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.IdentityServer.Test", "tests\Finbuckle.MultiTenant.Contrib.IdentityServer.Test\Finbuckle.MultiTenant.Contrib.IdentityServer.Test.csproj", "{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.AspNetCore", "src\Finbuckle.MultiTenant.Contrib.AspNetCore\Finbuckle.MultiTenant.Contrib.AspNetCore.csproj", "{305A1010-4573-4EF7-8B0E-1E8651E66E51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -72,6 +74,10 @@ Global
 		{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{305A1010-4573-4EF7-8B0E-1E8651E66E51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{305A1010-4573-4EF7-8B0E-1E8651E66E51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{305A1010-4573-4EF7-8B0E-1E8651E66E51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{305A1010-4573-4EF7-8B0E-1E8651E66E51}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,6 +92,7 @@ Global
 		{49ED4AC8-A595-41A0-A1B1-CADD4A293B0A} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
 		{DC78CA5D-A386-4516-A06A-7A5B74CD1B2C} = {5C66BB21-BA5F-405B-89AA-E734B560A4BF}
 		{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8} = {5C66BB21-BA5F-405B-89AA-E734B560A4BF}
+		{305A1010-4573-4EF7-8B0E-1E8651E66E51} = {D98E1B39-F1DF-4DE4-A861-305708B430E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A68D3FFE-B789-4B41-B4D9-DF0D04D4AABF}

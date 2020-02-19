@@ -111,7 +111,7 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies.Test
                         ctx.Configuration.GetSection("TenantConfiguration:FormStrategyConfiguration").Bind(c2);
 
                         services.AddMultiTenant()
-                            .WithStrategy<FormStrategy>(ServiceLifetime.Scoped, c2)
+                            .WithFormStrategy(c2)
                             .WithInMemoryStore();
                     }
 

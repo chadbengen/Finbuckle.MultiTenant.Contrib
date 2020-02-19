@@ -1,5 +1,5 @@
 ﻿using Finbuckle.MultiTenant.Contrib.Configuration;
-using Finbuckle.MultiTenant.Contrib.EFCoreStore;
+using Finbuckle.MultiTenant.Contrib.EfCoreStore;
 using Finbuckle.MultiTenant.Contrib.Extensions;
 
 namespace Finbuckle.MultiTenant.Contrib.EFCoreStore

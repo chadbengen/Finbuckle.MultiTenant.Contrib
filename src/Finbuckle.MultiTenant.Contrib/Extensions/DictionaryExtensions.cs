@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Finbuckle.MultiTenant.Contrib.Extensions
 {
@@ -38,7 +39,7 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
 
             if (!hasResult) return default;
 
-            return (T)result;
+            return (T)Convert.ChangeType(result, typeof(T));
         }
         public static T UnSafeGet<T>(this IDictionary<string, object> dictionary, string key)
         {
@@ -46,7 +47,7 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
 
             if (!hasResult) throw new KeyNotFoundException($"Could not find key: {key}");
 
-            return (T)result;
+            return (T)Convert.ChangeType(result, typeof(T));
         }
     }
 }

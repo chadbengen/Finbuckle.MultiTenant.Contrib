@@ -14,25 +14,17 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
     {
         private readonly ILogger<FormStrategy> _logger;
         private readonly FormStrategyConfiguration _configuration;
-  
-        /// <summary>
-        /// Supports the custom WithStrategy implementation
-        /// </summary>
-        /// <param name="logger"></param>
-        /// <param name="config"></param>
-        public FormStrategy(ILogger<FormStrategy> logger, FormStrategyConfiguration config)
+
+        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config) 
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            _configuration = config ?? throw new ArgumentNullException(nameof(config));
+            _configuration = config?.Value ?? throw new ArgumentNullException(nameof(config));
 
             if (!_configuration.Parameters?.Any() ?? false)
             {
                 throw new MultiTenantException($"No values were provided for the {nameof(FormStrategyConfiguration)}.");
             }
         }
-
-        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config) : this(logger, config?.Value)
-        { }
 
 
         public async Task<string> GetIdentifierAsync(object context)
@@ -64,6 +56,11 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
                     if (r.Type == FormStrategyParameterType.Identifier)
                     {
+                        _logger.LogDebug($"Returning tenant identifier for form value: {value}, controller: {controller}, and action: {action}.");
+                        return value;
+                    }
+                    else
+                    {
                         var tenantInfo = await store.TryGetByIdentifierAsync(value);
 
                         if (tenantInfo != null)
@@ -71,11 +68,6 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
                             _logger.LogDebug($"Returning tenant id for form value: {value}, controller: {controller}, and action: {action}.");
                             return tenantInfo.Identifier;
                         }
-                    }
-                    else
-                    {
-                        _logger.LogDebug($"Returning tenant id for form value: {value}, controller: {controller}, and action: {action}.");
-                        return value;
                     }
 
                     _logger.LogDebug($"Tenant could not be found for form value: {value}, controller: {controller}, and action: {action}.");
