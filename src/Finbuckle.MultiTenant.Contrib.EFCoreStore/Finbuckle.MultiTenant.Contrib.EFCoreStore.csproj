@@ -5,7 +5,7 @@
     <Description>Contribution functionality for Finbuckle.MultiTenant adding an EF Core DbContext that stores the Items dictionary, as well as an EF Core Store that caches tenants using the IMemoryCache.</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
-    <Version>2.0.0-alpha-2</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
  
   <ItemGroup>

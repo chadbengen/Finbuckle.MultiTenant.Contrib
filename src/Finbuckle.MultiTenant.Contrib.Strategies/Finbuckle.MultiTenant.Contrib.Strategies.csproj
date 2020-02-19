@@ -5,7 +5,7 @@
     <Description>Contribution functionality for Finbuckle.MultiTenant adding additional strategies.</Description>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>2.0.0-alpha-2</Version>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
