@@ -12,6 +12,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using Finbuckle.MultiTenant.Contrib.EfCoreStore;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Finbuckle.MultiTenant.Contrib.EFCoreStore
     {
         public DbSet<TTentantInfo> Tenants { get; set; }
 
+        public TenantDbContext() { }
         public TenantDbContext(DbContextOptions options) : base(options)
         {
         }

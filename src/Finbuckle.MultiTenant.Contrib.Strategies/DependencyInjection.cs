@@ -118,6 +118,7 @@ namespace Microsoft.Extensions.DependencyInjection
             // validate the configuration section
             var formStrategyConfiguration = new FormStrategyConfiguration();
             configurationSection.Bind(formStrategyConfiguration);
+
             ValidateFormStrategyConfiguration(formStrategyConfiguration);
             
             // register configuration so it will reload with changes

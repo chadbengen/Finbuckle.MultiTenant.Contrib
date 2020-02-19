@@ -36,9 +36,9 @@ namespace Finbuckle.MultiTenant.Contrib.Configuration
 
         public T Get<T>(string key)
         {
-            var item = Items.FirstOrDefault(i => i.Key.Equals(key, System.StringComparison.InvariantCultureIgnoreCase));
-            var value = item.Value;
             try { 
+                var item = Items.FirstOrDefault(i => i.Key.Equals(key, System.StringComparison.InvariantCultureIgnoreCase));
+                var value = item.Value;
                 return (T)Convert.ChangeType(value, typeof(T));
             }
             catch

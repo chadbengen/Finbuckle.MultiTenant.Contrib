@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Finbuckle.MultiTenant.Contrib.EFCoreStore
+namespace Finbuckle.MultiTenant.Contrib.EfCoreStore
 {
     public interface ITenantEntity
     {

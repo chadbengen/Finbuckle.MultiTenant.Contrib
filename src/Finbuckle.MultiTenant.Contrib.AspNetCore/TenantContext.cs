@@ -14,7 +14,7 @@ namespace Finbuckle.MultiTenant.Contrib.AspNetCore
         public TenantContext(
             IHttpContextAccessor httpContextAccessor,
             TenantConfigurations tenantConfigurations,
-            TenantInfo tenantInfo,
+            TenantInfo tenantInfo = null,
             ValidateTenantRequirement validateTenantRequirement = null)
         {
             _httpContextAccessor = httpContextAccessor;

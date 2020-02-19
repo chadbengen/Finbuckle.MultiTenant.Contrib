@@ -20,7 +20,7 @@ namespace Microsoft.Extensions.DependencyInjection
             // register a configuration for MultiTenantEnabled = false
             services.AddSingleton<ITenantConfiguration>(new TenantConfiguration() { Key = Constants.MultiTenantEnabled, Value = false });
             // register the configurations
-            services.AddSingleton<TenantConfigurations>();
+            services.AddScoped<TenantConfigurations>();
 
             return services;
         }

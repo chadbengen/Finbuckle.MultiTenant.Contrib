@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Finbuckle.MultiTenant.Contrib.EfCoreStore;
+using System.Collections.Generic;
 
 namespace Finbuckle.MultiTenant.Contrib.EFCoreStore
 {

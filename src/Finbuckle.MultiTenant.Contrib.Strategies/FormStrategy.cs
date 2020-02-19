@@ -56,6 +56,11 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
                     if (r.Type == FormStrategyParameterType.Identifier)
                     {
+                        _logger.LogDebug($"Returning tenant identifier for form value: {value}, controller: {controller}, and action: {action}.");
+                        return value;
+                    }
+                    else
+                    {
                         var tenantInfo = await store.TryGetByIdentifierAsync(value);
 
                         if (tenantInfo != null)
@@ -63,11 +68,6 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
                             _logger.LogDebug($"Returning tenant id for form value: {value}, controller: {controller}, and action: {action}.");
                             return tenantInfo.Identifier;
                         }
-                    }
-                    else
-                    {
-                        _logger.LogDebug($"Returning tenant id for form value: {value}, controller: {controller}, and action: {action}.");
-                        return value;
                     }
 
                     _logger.LogDebug($"Tenant could not be found for form value: {value}, controller: {controller}, and action: {action}.");

@@ -18,6 +18,10 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             var builder = new IdentityBuilder(typeof(TUserIdentity), typeof(TUserIdentityRole), services);
             return builder.AddDefaultMultiTenantIdentityServices<TUserIdentity, TUserIdentityRole, TUserStore, TRoleStore>(true);
+            //services.AddScoped(typeof(IUserStore<>).MakeGenericType(typeof(TUserIdentity)), typeof(TUserStore));
+            //services.AddScoped(typeof(IRoleStore<>).MakeGenericType(typeof(TUserIdentityRole)), typeof(TRoleStore));
+
+            //return services;
         }
     }
 
@@ -82,7 +86,7 @@ namespace Microsoft.Extensions.DependencyInjection
            where TRequires2fa : class, IRequireTwoFactorAuthenticationFactory
         {
             builder.AddUserValidator<TUser, TValidator>();
-            builder.Services.AddSingleton<IRequireTwoFactorAuthenticationFactory, TRequires2fa>();
+            builder.Services.AddScoped<IRequireTwoFactorAuthenticationFactory, TRequires2fa>();
             return builder;
         }
         public static IdentityBuilder AddRoleValidator<TRole, TValidator>(this IdentityBuilder builder)
