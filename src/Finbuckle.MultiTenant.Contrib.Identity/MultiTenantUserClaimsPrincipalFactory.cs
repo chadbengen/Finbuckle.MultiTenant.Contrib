@@ -46,11 +46,26 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
                 {
                     throw new MultiTenantException("User does not have a Tenant Id set.");
                 }
-                
+
+                var tenantClaim = new Claim(_tenantClaimName, tenantId);
+                var existingTenantClaim = id.Claims.FirstOrDefault(a => a.Type == _tenantClaimName);
+
                 // if the tenantid is not already a user claim then we need to add it
-                if (!id.Claims.Any(a => a.Type == _tenantClaimName))
+                if (existingTenantClaim == null)
                 {
-                    id.AddClaim(new Claim(_tenantClaimName, tenantId));
+                    id.AddClaim(tenantClaim);
+
+                    // save the claim in db
+                    await UserManager.AddClaimAsync(user, tenantClaim);
+                }
+                // ensure that the user tenant id and claim are equal
+                else if (!existingTenantClaim.Value.Equals(tenantId, System.StringComparison.InvariantCultureIgnoreCase))
+                {
+                    // replace the claim in db
+                    await UserManager.ReplaceClaimAsync(user, existingTenantClaim, tenantClaim);
+
+                    // regenerate identity
+                    id = await base.GenerateClaimsAsync(user);
                 }
             }
 

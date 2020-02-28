@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.IdentityServer.Test", "tests\Finbuckle.MultiTenant.Contrib.IdentityServer.Test\Finbuckle.MultiTenant.Contrib.IdentityServer.Test.csproj", "{F38AD0F7-EC52-49FC-8532-9C5A8560ECD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finbuckle.MultiTenant.Contrib.AspNetCore", "src\Finbuckle.MultiTenant.Contrib.AspNetCore\Finbuckle.MultiTenant.Contrib.AspNetCore.csproj", "{305A1010-4573-4EF7-8B0E-1E8651E66E51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Finbuckle.MultiTenant.Contrib.AspNetCore", "src\Finbuckle.MultiTenant.Contrib.AspNetCore\Finbuckle.MultiTenant.Contrib.AspNetCore.csproj", "{305A1010-4573-4EF7-8B0E-1E8651E66E51}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -96,5 +96,16 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A68D3FFE-B789-4B41-B4D9-DF0D04D4AABF}
+	EndGlobalSection
+	GlobalSection(AutomaticVersions) = postSolution
+		UpdateAssemblyVersion = True
+		UpdateAssemblyFileVersion = True
+		UpdateAssemblyInfoVersion = True
+		AssemblyVersionSettings = IncrementOnDemand.IncrementOnDemand.IncrementWithResetOnIncrease.DateStamp
+		AssemblyFileVersionSettings = IncrementOnDemand.IncrementOnDemand.IncrementWithResetOnIncrease.DateStamp
+		UpdatePackageVersion = False
+		AssemblyInfoVersionSemVerSettings = AssemblyVersion.IncrementWithAutoReset.None
+		AssemblyInfoVersionType = SemVer1
+		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal

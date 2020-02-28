@@ -9,6 +9,10 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
         {
             return configurations.Get<bool>(Constants.MultiTenantEnabled);
         }
+        public static bool IsTwoFactorAuthenticationRequired(this TenantConfigurations configurations)
+        {
+            return configurations.Get<bool>(Constants.RequiresTwoFactorAuthentication);
+        }
         public static bool UseTenantCode(this TenantConfigurations configurations)
         {
             return configurations.IsMultiTenantEnabled() 
