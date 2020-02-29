@@ -6,8 +6,8 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.5.20060</AssemblyVersion>
-    <FileVersion>2.0.5.20060</FileVersion>
+    <AssemblyVersion>2.0.2.20060</AssemblyVersion>
+    <FileVersion>2.0.2.20060</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

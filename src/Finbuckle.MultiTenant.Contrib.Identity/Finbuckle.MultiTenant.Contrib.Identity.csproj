@@ -6,8 +6,8 @@
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <Description>Contribution functionality for Finbuckle.MultiTenant adding AspNetIdentity helpers.</Description>
     <Version>2.0.2</Version>
-    <AssemblyVersion>2.0.8.20060</AssemblyVersion>
-    <FileVersion>2.0.8.20060</FileVersion>
+    <AssemblyVersion>2.0.2.20060</AssemblyVersion>
+    <FileVersion>2.0.2.20060</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
