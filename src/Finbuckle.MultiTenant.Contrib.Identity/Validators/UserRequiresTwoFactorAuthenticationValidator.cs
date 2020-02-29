@@ -18,7 +18,7 @@ namespace Finbuckle.MultiTenant.Contrib.Identity.Validators
             _tenantContext = tenantContext;
             _2faRequiredFactory = factory;
 #if DEBUG
-            _autoEnable = tenantContext.TenantConfigurations.Get<bool>(Constants.Ignore2faWhileDebugging);
+            _autoEnable = !tenantContext.TenantConfigurations.Get<bool>(Constants.Ignore2faWhileDebugging) ;
 #endif
         }
 
