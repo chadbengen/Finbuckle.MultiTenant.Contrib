@@ -2,6 +2,9 @@ name: .NET Core
 
 on: [push]
 
+env:
+    NUGET_KEY: ${{secrets.NUGET_KEY}}
+
 jobs:
   build:
 
@@ -15,5 +18,7 @@ jobs:
         dotnet-version: 3.1.100
     - name: Build with dotnet
       run: dotnet build --configuration Release
-    - name: Create the package
+    - name: Create the packages
       run: dotnet pack --output nupkgs --configuration Release
+    - name: Publish the packages
+      run: dotnet nuget push *.nupkg --skip-duplicate -k NUGET_KEY -s https://api.nuget.org/v3/index.json
