@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finbuckle.MultiTenant.Contrib.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -15,7 +17,7 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
         private readonly ILogger<FormStrategy> _logger;
         private readonly FormStrategyConfiguration _configuration;
 
-        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config) 
+        public FormStrategy(ILogger<FormStrategy> logger, IOptionsSnapshot<FormStrategyConfiguration> config)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _configuration = config?.Value ?? throw new ArgumentNullException(nameof(config));
@@ -34,25 +36,35 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
                     new ArgumentException($"\"{nameof(context)}\" type must be of type HttpContext", nameof(context)));
 
             var httpContext = context as HttpContext;
+            var routeData = httpContext.GetRouteData();
+            var hasController = routeData.Values.TryGetValue("controller", out var c1);
+            var hasAction = routeData.Values.TryGetValue("action", out var a1);
+            string controller = c1?.ToString();
+            string action = a1?.ToString();
 
-            if (string.Equals(httpContext.Request.Method, "POST", StringComparison.OrdinalIgnoreCase)
-                && httpContext.Request.HasFormContentType
-                && httpContext.Request.Body.CanRead)
+            var parameters = _configuration.Parameters
+                .Where(a => a.Controller.Equals(controller, StringComparison.InvariantCultureIgnoreCase))
+                .Where(a => a.Action.Equals(action, StringComparison.InvariantCultureIgnoreCase))
+                .ToList();
+
+            if (parameters.Any())
             {
                 var store = httpContext.RequestServices.GetRequiredService<IMultiTenantStore>();
-                var routeData = httpContext.GetRouteData();
-                var controller = (string)routeData.Values["Controller"];
-                var action = (string)routeData.Values["action"];
-                var parameters = _configuration.Parameters
-                    .Where(a => a.Controller.Equals(controller, StringComparison.InvariantCultureIgnoreCase))
-                    .Where(a => a.Action.Equals(action, StringComparison.InvariantCultureIgnoreCase))
-                    .ToList();
+                var queryData = GetQueryData(httpContext);
+                var formData = await GetFormDataAsync(httpContext);
+
+                var data = queryData.Merge(formData).ConvertToCaseInSensitive();
 
                 foreach (var r in parameters)
                 {
-                    var formOptions = new FormOptions { BufferBody = true };
-                    var form = await httpContext.Request.ReadFormAsync(formOptions);
-                    string value = form[r.Name];
+                    var hasKey = data.ContainsKey(r.Name);
+
+                    if (!hasKey)
+                    {
+                        continue;
+                    }
+
+                    var value = data[r.Name];
 
                     if (r.Type == FormStrategyParameterType.Identifier)
                     {
@@ -76,6 +88,25 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
             return null;
         }
-    }
 
+        private async Task<Dictionary<string, string>> GetFormDataAsync(HttpContext httpContext)
+        {
+            if (httpContext.Request.HasFormContentType && httpContext.Request.Body.CanRead)
+            {
+                var formOptions = new FormOptions { BufferBody = true };
+                IFormCollection form = await httpContext.Request.ReadFormAsync(formOptions);
+                return form.ToDictionary(k => k.Key, v => v.Value.ToString(), StringComparer.InvariantCultureIgnoreCase);
+            }
+            return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+        }
+
+        private Dictionary<string, string> GetQueryData(HttpContext httpContext)
+        {
+            if (httpContext.Request.QueryString.HasValue)
+            {
+                return httpContext.Request.Query.ToDictionary(k => k.Key, v => v.Value.ToString(), StringComparer.InvariantCultureIgnoreCase);
+            }
+            return new Dictionary<string, string>(StringComparer.InvariantCultureIgnoreCase);
+        }
+    }
 }

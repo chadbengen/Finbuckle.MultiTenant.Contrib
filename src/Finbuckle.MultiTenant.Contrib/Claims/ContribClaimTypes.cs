@@ -6,6 +6,6 @@ namespace Finbuckle.MultiTenant.Contrib.Claims
 {
     public static class ContribClaimTypes
     {
-        public const string TenantId = "TenantId";
+        public const string TenantId = "tenantid";
     }
 }
