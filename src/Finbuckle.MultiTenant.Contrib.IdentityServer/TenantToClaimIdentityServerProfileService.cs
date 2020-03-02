@@ -51,7 +51,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
 
                 var claims = principal.Claims.ToList();
 
-                if (tenantClaim != null)
+                if (tenantClaim != null && principal.FindFirst(_tenantClaimName) == null)
                 {
                     claims.Add(tenantClaim);
                 }

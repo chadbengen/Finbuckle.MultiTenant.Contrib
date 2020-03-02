@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Finbuckle.MultiTenant.Contrib.Extensions
 {
@@ -48,6 +49,23 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
             if (!hasResult) throw new KeyNotFoundException($"Could not find key: {key}");
 
             return (T)Convert.ChangeType(result, typeof(T));
+        }
+        public static IDictionary<TKey, TValue> Merge<TKey, TValue>(this IDictionary<TKey, TValue> dictA, IDictionary<TKey, TValue> dictB)
+          where TValue : class
+        {
+            return dictA.Keys.Union(dictB.Keys).ToDictionary(k => k, k => dictA.ContainsKey(k) ? dictA[k] : dictB[k]);
+        }
+
+        public static IDictionary<string, TValue> ConvertToCaseInSensitive<TValue>(this IDictionary<string, TValue> dictionary)
+        {
+            var resultDictionary = new Dictionary<string, TValue>(StringComparer.InvariantCultureIgnoreCase);
+            foreach (var (key, value) in dictionary)
+            {
+                resultDictionary.Add(key, value);
+            }
+
+            dictionary = resultDictionary;
+            return dictionary;
         }
     }
 }
