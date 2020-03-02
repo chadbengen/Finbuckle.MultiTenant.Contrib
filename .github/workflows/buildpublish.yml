@@ -1,9 +1,9 @@
 name: Build and Publish
 
-on:
-  push:
-    branches:
-      - master
+on: [push]
+#  push:
+#    branches:
+#      - master
 
 env:
     NUGET_KEY: ${{secrets.NUGET_KEY}}
