@@ -16,4 +16,4 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Create the package
-      run: dotnet pack --output nupkgs --configuration Release SLN
+      run: dotnet pack --output nupkgs --configuration Release
