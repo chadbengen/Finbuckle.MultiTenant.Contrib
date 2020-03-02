@@ -1,0 +1,27 @@
+name: Build and Publish
+
+on:
+  push:
+    branches:
+      - master
+
+env:
+    NUGET_KEY: ${{secrets.NUGET_KEY}}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.100
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+    - name: Create the packages
+      run: dotnet pack --output nupkgs --configuration Release
+    - name: Publish the packages
+      run: dotnet nuget push nupkgs/*.nupkg --skip-duplicate -k ${NUGET_KEY} -s https://api.nuget.org/v3/index.json
