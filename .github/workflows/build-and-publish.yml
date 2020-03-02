@@ -22,6 +22,6 @@ jobs:
     - name: Build with dotnet
       run: dotnet build --configuration Release
     - name: Create the packages
-      run: dotnet pack --output nupkgs --configuration Release
+      run: dotnet pack --configuration Release
     - name: Publish the packages
-      run: dotnet nuget push nupkgs/*.nupkg --skip-duplicate -k ${NUGET_KEY} -s https://api.nuget.org/v3/index.json
+      run: dotnet nuget push **/*.nupkg --skip-duplicate -k ${NUGET_KEY} -s https://api.nuget.org/v3/index.json -n true
