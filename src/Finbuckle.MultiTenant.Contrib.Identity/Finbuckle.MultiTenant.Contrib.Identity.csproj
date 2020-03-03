@@ -5,9 +5,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <Description>Contribution functionality for Finbuckle.MultiTenant adding AspNetIdentity helpers.</Description>
-    <Version>2.1.0</Version>
-    <AssemblyVersion>2.1.0.20062</AssemblyVersion>
-    <FileVersion>2.1.0.20062</FileVersion>
+    <Version>2.2.0</Version>
+    <AssemblyVersion>2.2.0.20062</AssemblyVersion>
+    <FileVersion>2.2.0.20062</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,6 +27,7 @@
     <Compile Remove="MultiTenantUserClaimsPrincipalFactoryConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="IdentityModel" Version="4.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.0" />
   </ItemGroup>
