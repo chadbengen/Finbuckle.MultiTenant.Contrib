@@ -4,22 +4,11 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>2.2.0</Version>
-    <AssemblyVersion>2.2.0.20062</AssemblyVersion>
-    <FileVersion>2.2.0.20062</FileVersion>
+    <AssemblyVersion>2.3.0.20062</AssemblyVersion>
+    <FileVersion>2.3.0.20062</FileVersion>
+    <Version>2.3.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
-    <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="IdentityServer4" Version="3.1.0" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="3.1.0" />

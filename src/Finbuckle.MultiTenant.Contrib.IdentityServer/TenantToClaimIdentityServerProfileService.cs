@@ -17,13 +17,16 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
         where TUser : class
     {
         private readonly string _tenantClaimName;
+        private readonly IExternalClaimsService _externalClaimsService;
 
         public TenantToClaimIdentityServerProfileService(UserManager<TUser> userManager, 
             IUserClaimsPrincipalFactory<TUser> claimsFactory, 
             ILogger<TenantToClaimIdentityServerProfileService<TUser>> logger,
-            TenantConfigurations tenantConfigurations) : base(userManager, claimsFactory, logger)
+            TenantConfigurations tenantConfigurations,
+            IExternalClaimsService externalClaimsService = null) : base(userManager, claimsFactory, logger)
         {
             _tenantClaimName = tenantConfigurations.TenantClaimName();
+            _externalClaimsService = externalClaimsService;
         }
 
         public override async Task GetProfileDataAsync(ProfileDataRequestContext context)
@@ -39,6 +42,7 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
             {
                 tenantClaim = new Claim(_tenantClaimName, ((IHaveTenantId)user).TenantId);
             }
+
             if (user == null)
             {
                 Logger?.LogWarning("No user found matching subject Id: {0}", sub);
@@ -54,6 +58,12 @@ namespace Finbuckle.MultiTenant.Contrib.IdentityServer
                 if (tenantClaim != null && principal.FindFirst(_tenantClaimName) == null)
                 {
                     claims.Add(tenantClaim);
+                }
+
+                if (_externalClaimsService != null)
+                {
+                    var externalClaims = await _externalClaimsService.GetClaims(claims);
+                    claims.AddRange(externalClaims);
                 }
 
                 context.AddRequestedClaims(claims);

@@ -19,14 +19,17 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
     public class MultiTenantUserClaimsPrincipalFactory<TUser, TUserRole> : UserClaimsPrincipalFactory<TUser, TUserRole> where TUser : class where TUserRole : class
     {
         private readonly string _tenantClaimName;
+        private readonly IExternalClaimsService _externalClaimsService;
 
         public MultiTenantUserClaimsPrincipalFactory(
             UserManager<TUser> userManager,
             RoleManager<TUserRole> roleManager,
             IOptions<IdentityOptions> options,
-            TenantConfigurations tenantConfigurations) : base(userManager, roleManager, options)
+            TenantConfigurations tenantConfigurations,
+            IExternalClaimsService externalClaimsService = null) : base(userManager, roleManager, options)
         {
             _tenantClaimName = tenantConfigurations.TenantClaimName();
+            _externalClaimsService = externalClaimsService;
         }
 
         /// <summary>
@@ -82,6 +85,12 @@ namespace Finbuckle.MultiTenant.Contrib.Identity
                     // regenerate identity
                     id = await base.GenerateClaimsAsync(user);
                 }
+            }
+
+            if (_externalClaimsService != null)
+            {
+                var externalClaims =    await _externalClaimsService.GetClaims(id.Claims);
+                id.AddClaims(externalClaims);
             }
 
             return id;

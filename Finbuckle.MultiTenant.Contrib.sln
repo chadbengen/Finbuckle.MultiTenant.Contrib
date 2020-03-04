@@ -100,12 +100,14 @@ Global
 	GlobalSection(AutomaticVersions) = postSolution
 		UpdateAssemblyVersion = True
 		UpdateAssemblyFileVersion = True
-		UpdateAssemblyInfoVersion = False
+		UpdateAssemblyInfoVersion = True
 		ShouldCreateLogs = True
 		AssemblyVersionSettings = IncrementOnDemand.IncrementOnDemand.IncrementWithResetOnIncrease.DateStamp
 		AssemblyFileVersionSettings = IncrementOnDemand.IncrementOnDemand.IncrementWithResetOnIncrease.DateStamp
-		UpdatePackageVersion = False
-		AssemblyInfoVersionType = SettingsVersion
+		UpdatePackageVersion = True
+		PackageVersionSettings = AssemblyVersion.IncrementWithAutoReset.None
+		AssemblyInfoVersionSemVerSettings = AssemblyVersion.IncrementWithAutoReset.None
+		AssemblyInfoVersionType = SemVer1
 		InheritWinAppVersionFrom = None
 	EndGlobalSection
 EndGlobal
