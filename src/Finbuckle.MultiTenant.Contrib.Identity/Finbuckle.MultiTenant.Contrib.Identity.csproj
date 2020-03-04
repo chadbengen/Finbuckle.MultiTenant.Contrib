@@ -5,21 +5,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <Description>Contribution functionality for Finbuckle.MultiTenant adding AspNetIdentity helpers.</Description>
-    <Version>2.2.0</Version>
-    <AssemblyVersion>2.2.0.20062</AssemblyVersion>
-    <FileVersion>2.2.0.20062</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <ShouldCreateLogs>True</ShouldCreateLogs>
-    <AdvancedSettingsExpanded>False</AdvancedSettingsExpanded>
-    <UpdateAssemblyVersion>False</UpdateAssemblyVersion>
-    <UpdateAssemblyFileVersion>False</UpdateAssemblyFileVersion>
-    <UpdateAssemblyInfoVersion>False</UpdateAssemblyInfoVersion>
-    <UpdatePackageVersion>True</UpdatePackageVersion>
-    <PackageVersionSettings>AssemblyVersion.IncrementWithAutoReset.None</PackageVersionSettings>
-    <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
-    <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
+    <AssemblyVersion>2.3.0.20062</AssemblyVersion>
+    <FileVersion>2.3.0.20062</FileVersion>
+    <Version>2.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
