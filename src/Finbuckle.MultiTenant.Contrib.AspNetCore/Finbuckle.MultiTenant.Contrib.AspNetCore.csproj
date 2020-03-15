@@ -5,9 +5,9 @@
     <Description>Contribution base functionality for Finbuckle.MultiTenant</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
-    <AssemblyVersion>2.4.0.20066</AssemblyVersion>
-    <FileVersion>2.4.0.20066</FileVersion>
-    <Version>2.4.0</Version>
+    <AssemblyVersion>2.7.0.20066</AssemblyVersion>
+    <FileVersion>2.7.0.20066</FileVersion>
+    <Version>2.7.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

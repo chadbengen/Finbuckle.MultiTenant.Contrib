@@ -33,7 +33,7 @@ namespace Microsoft.Extensions.DependencyInjection
             builder.Services.AddTenantConfigurations();
             // register the strategy with the built in finbuckly custom strategy
             builder.WithStrategy<ClaimsStrategy>(ServiceLifetime.Scoped);
-            
+
             return builder;
         }
         /// <summary>
@@ -127,6 +127,13 @@ namespace Microsoft.Extensions.DependencyInjection
             // register the strategy with the built in finbuckly custom strategy
             builder.WithStrategy<FormStrategy>(ServiceLifetime.Scoped);
             
+            return builder;
+        }
+        public static FinbuckleMultiTenantBuilder WithCookieStrategy(this FinbuckleMultiTenantBuilder builder)
+        {
+            // register the strategy with the built in finbuckly custom strategy
+            builder.WithStrategy<CookieStrategy>(ServiceLifetime.Scoped);
+
             return builder;
         }
 

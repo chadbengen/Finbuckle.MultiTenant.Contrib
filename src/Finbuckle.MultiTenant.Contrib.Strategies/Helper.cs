@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Finbuckle.MultiTenant.Contrib.Abstractions;
+using Finbuckle.MultiTenant.Contrib.Configuration;
+using Microsoft.AspNetCore.Http;
 using System;
 
 namespace Finbuckle.MultiTenant.Contrib.Strategies
 {
     public static class Helper
     {
-        public static void SetTenantCookie(HttpResponse response, string tenantKey, string tenantId)
-        {            
+        public static void RemoveTenantCookie(HttpResponse httpResponse, ITenantContext tenantContext)
+        {
+            var tenantKey = tenantContext.TenantConfigurations.MultiTenantCookieKey();
+            httpResponse.Cookies.Delete(tenantKey);
+        }
+
+        public static void SetTenantCookie(HttpResponse response, ITenantContext tenantContext)
+        {
+            var tenantKey = tenantContext.TenantConfigurations.MultiTenantCookieKey();
+            var tenantId = tenantContext.Tenant?.Id;
+            
             if (string.IsNullOrWhiteSpace(tenantId))
             {
                 response.Cookies.Delete(tenantKey);
@@ -21,8 +32,7 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
                     new CookieOptions
                     {
                         Path = "/",
-                        HttpOnly = false,
-                        Expires = DateTimeOffset.Now.AddYears(10)
+                        HttpOnly = false
                     }
                 );
             }
