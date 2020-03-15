@@ -5,9 +5,9 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <Description>Contribution functionality for Finbuckle.MultiTenant adding AspNetIdentity helpers.</Description>
-    <AssemblyVersion>2.3.0.20062</AssemblyVersion>
-    <FileVersion>2.3.0.20062</FileVersion>
-    <Version>2.3.0</Version>
+    <AssemblyVersion>2.4.0.20066</AssemblyVersion>
+    <FileVersion>2.4.0.20066</FileVersion>
+    <Version>2.4.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
