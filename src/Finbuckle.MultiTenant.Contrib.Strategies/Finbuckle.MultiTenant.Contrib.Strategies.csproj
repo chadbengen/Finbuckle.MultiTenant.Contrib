@@ -5,15 +5,14 @@
     <Description>Contribution functionality for Finbuckle.MultiTenant adding additional strategies.</Description>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>2.7.0.20066</AssemblyVersion>
-    <FileVersion>2.7.0.20066</FileVersion>
-    <Version>2.7.0</Version>
+    <AssemblyVersion>2.8.0.20076</AssemblyVersion>
+    <FileVersion>2.8.0.20076</FileVersion>
+    <Version>2.8.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.2.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
