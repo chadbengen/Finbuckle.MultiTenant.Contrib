@@ -9,6 +9,7 @@ using System.Security.Claims;
 
 namespace Finbuckle.MultiTenant.Contrib.Test.Mock
 {
+
     public static class SharedMock
     {
         public static IConfigurationBuilder GetConfigurationBuilder(Dictionary<string, string> config)
@@ -19,6 +20,7 @@ namespace Finbuckle.MultiTenant.Contrib.Test.Mock
 
             return configuration;
         }
+
         public static Dictionary<string, string> ConfigurationSectionExTrue =>
             new Dictionary<string, string>()
             {

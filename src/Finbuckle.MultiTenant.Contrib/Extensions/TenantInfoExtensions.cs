@@ -24,5 +24,23 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
         {
             tenantInfo.Items.Set(Constants.IsActive, value);
         }
+        public static string GetConnectionString<TDbContext>(this TenantInfo tenantInfo)
+        {
+            var key = typeof(TDbContext).Name;
+            return tenantInfo.GetConnectionString(key);
+        }
+        public static string GetConnectionString(this TenantInfo tenantInfo, string dbName)
+        {
+            return tenantInfo.Items.UnSafeGet<string>(dbName);
+        }
+        public static void SetConnectionString<TDbContext>(this TenantInfo tenantInfo, string connectionString)
+        {
+            var key = typeof(TDbContext).Name;
+            tenantInfo.SetConnectionString(key, connectionString);
+        }
+        public static void SetConnectionString(this TenantInfo tenantInfo, string dbName, string connectionString)
+        {
+            tenantInfo.Items.Set(dbName, connectionString);
+        }
     }
 }

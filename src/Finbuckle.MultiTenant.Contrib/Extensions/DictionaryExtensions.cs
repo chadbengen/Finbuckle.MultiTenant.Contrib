@@ -13,11 +13,11 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
     /// </remarks>
     public static class DictionaryExtensions
     {
-        public static void Set(this IDictionary<string, object> dictionary, string key, bool? value)
+        public static void Set<T>(this IDictionary<string, object> dictionary, string key, T value)
         {
             if (dictionary.ContainsKey(key))
             {
-                if (value.HasValue)
+                if (value != null)
                 {
                     dictionary[key] = value;
                 }
@@ -28,7 +28,7 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
             }
             else
             {
-                if (value.HasValue)
+                if (value != null)
                 {
                     dictionary.Add(key, value);
                 }
