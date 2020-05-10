@@ -11,6 +11,7 @@ using Finbuckle.MultiTenant.Contrib.EFCoreStore;
 using Microsoft.Extensions.Options;
 using Finbuckle.MultiTenant.Contrib.Configuration;
 using Finbuckle.MultiTenant.Contrib.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
 
 namespace CareComplete.MultiTenant.Stores
 {
@@ -20,21 +21,19 @@ namespace CareComplete.MultiTenant.Stores
     public class DefaultEFCacheStore : DefaultEFStore
     {
         private readonly DefaultTenantDbContext _dbContext;
-        private readonly IMemoryCache _memoryCache;
-        private readonly MemoryCacheEntryOptions _cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromHours(48));
-        
+        private readonly IDistributedCache _memoryCache;
+        private readonly DistributedCacheEntryOptions _cacheOptions = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(60) };
+
         private readonly string _cacheKey = $"{typeof(DefaultEFCacheStore).FullName}";
 
-        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IMemoryCache memoryCache, TenantConfigurations tenantConfigurations) : base(dbContext)
+        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IDistributedCache memoryCache, TenantConfigurations tenantConfigurations) : base(dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _memoryCache = memoryCache;
-            _cacheOptions = new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(tenantConfigurations.CacheMinutes()));
+            _cacheOptions = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(tenantConfigurations.CacheMinutes()) };
         }
 
-        private readonly ConcurrentDictionary<string, SemaphoreSlim> _locks = new ConcurrentDictionary<string, SemaphoreSlim>();
-
-        private IQueryable<TenantInfo> GetTenantsFromDbContext =>                         
+        private IQueryable<TenantInfo> GetTenantsFromDbContext =>
             _dbContext.Set<TenantEntity>()
                 .Select(ti => new TenantInfo(ti.Id, ti.Identifier, ti.Name, ti.ConnectionString, ti.Items));
 
@@ -42,29 +41,20 @@ namespace CareComplete.MultiTenant.Stores
 
         private async Task<List<TenantInfo>> GetTenants()
         {
+            var cached = await _memoryCache.GetAsync<List<TenantInfo>>(_cacheKey);
 
-            if (!_memoryCache.TryGetValue(_cacheKey, out List<TenantInfo> cachedList))// Look for cache key.
+            if (cached == null  )
             {
-                SemaphoreSlim mylock = _locks.GetOrAdd(_cacheKey, k => new SemaphoreSlim(1, 1));
+                cached = await GetTenantsFromDbContext.ToListAsync();
 
-                await mylock.WaitAsync();
-
-                try
-                {
-                    if (!_memoryCache.TryGetValue(_cacheKey, out cachedList))
-                    {
-                        // Key not in cache, so get data.
-                        cachedList = await GetTenantsFromDbContext.ToListAsync();
-
-                        SetCache(cachedList);
-                    }
-                }
-                finally
-                {
-                    mylock.Release();
-                }
+                SetCache(cached);
             }
-            return cachedList;
+            else
+            {
+                await _memoryCache.RefreshAsync(_cacheKey);
+            }
+
+            return cached;
         }
 
         public override async Task<TenantInfo> TryGetAsync(string id)

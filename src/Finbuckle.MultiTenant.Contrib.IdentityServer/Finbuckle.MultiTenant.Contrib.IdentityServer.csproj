@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>2.9.0.20066</AssemblyVersion>
-    <FileVersion>2.9.0.20066</FileVersion>
-    <Version>2.9.0</Version>
+    <AssemblyVersion>3.10.0.20066</AssemblyVersion>
+    <FileVersion>3.10.0.20066</FileVersion>
+    <Version>3.10.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
