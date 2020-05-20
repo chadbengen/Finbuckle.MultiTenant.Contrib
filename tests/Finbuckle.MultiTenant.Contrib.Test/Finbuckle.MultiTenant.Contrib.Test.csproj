@@ -5,11 +5,11 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyVersion>2.6.0.20129</AssemblyVersion>
+    <AssemblyVersion>2.7.1.20141</AssemblyVersion>
 
-    <FileVersion>2.6.0.20129</FileVersion>
+    <FileVersion>2.7.1.20141</FileVersion>
 
-    <Version>2.6.0</Version>
+    <Version>2.7.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,6 +24,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoBogus" Version="2.8.1" />
     <PackageReference Include="Bogus" Version="29.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
