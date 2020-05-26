@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Finbuckle.MultiTenant.Contrib.Configuration;
 using Finbuckle.MultiTenant.Contrib.Extensions;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 namespace CareComplete.MultiTenant.Stores
 {
@@ -22,14 +23,16 @@ namespace CareComplete.MultiTenant.Stores
     {
         private readonly DefaultTenantDbContext _dbContext;
         private readonly IDistributedCache _memoryCache;
+        private readonly ILogger<DefaultEFCacheStore> _logger;
         private readonly DistributedCacheEntryOptions _cacheOptions = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(60) };
 
         private readonly string _cacheKey = $"{typeof(DefaultEFCacheStore).FullName}";
 
-        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IDistributedCache memoryCache, TenantConfigurations tenantConfigurations) : base(dbContext)
+        public DefaultEFCacheStore(DefaultTenantDbContext dbContext, IDistributedCache memoryCache, TenantConfigurations tenantConfigurations, ILogger<DefaultEFCacheStore> logger) : base(dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
             _memoryCache = memoryCache;
+            _logger = logger;
             _cacheOptions = new DistributedCacheEntryOptions() { SlidingExpiration = TimeSpan.FromMinutes(tenantConfigurations.CacheMinutes()) };
         }
 
@@ -37,7 +40,10 @@ namespace CareComplete.MultiTenant.Stores
             _dbContext.Set<TenantEntity>()
                 .Select(ti => new TenantInfo(ti.Id, ti.Identifier, ti.Name, ti.ConnectionString, ti.Items));
 
-        private void SetCache(List<TenantInfo> tenants) => _memoryCache.Set(_cacheKey, tenants, _cacheOptions);
+        private void SetCache(List<TenantInfo> tenants) {
+            _logger.LogDebug("Caching {TenantCount} tenants for {CacheMinutes} minutes.", tenants.Count, _cacheOptions.SlidingExpiration.Value.TotalMinutes);
+            _memoryCache.Set(_cacheKey, tenants, _cacheOptions); 
+        }
 
         private async Task<List<TenantInfo>> GetTenants()
         {
