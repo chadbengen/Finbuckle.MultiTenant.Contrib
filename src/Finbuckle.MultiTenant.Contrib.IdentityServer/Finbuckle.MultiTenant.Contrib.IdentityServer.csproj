@@ -4,9 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageProjectUrl>https://github.com/chadbengen/Finbuckle.MultiTenant.Contrib</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>3.12.0.20147</AssemblyVersion>
-    <FileVersion>3.12.0.20147</FileVersion>
-    <Version>3.12.0</Version>
+    <AssemblyVersion>3.13.0.20147</AssemblyVersion>
+    <FileVersion>3.13.0.20147</FileVersion>
+    <Version>3.13.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
