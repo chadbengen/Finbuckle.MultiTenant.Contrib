@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -40,6 +42,8 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
 
             if (!hasResult) return default;
 
+            if (result is JObject) return (result as JObject).ToObject<T>();
+
             return (T)Convert.ChangeType(result, typeof(T));
         }
         public static T UnSafeGet<T>(this IDictionary<string, object> dictionary, string key)
@@ -67,5 +71,18 @@ namespace Finbuckle.MultiTenant.Contrib.Extensions
             dictionary = resultDictionary;
             return dictionary;
         }
+
+        //private static bool IsSimple(Type type)
+        //{
+        //    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>))
+        //    {
+        //        // nullable type, check if the nested type is simple.
+        //        return IsSimple(type.GetGenericArguments()[0]);
+        //    }
+        //    return type.IsPrimitive
+        //      || type.IsEnum
+        //      || type.Equals(typeof(string))
+        //      || type.Equals(typeof(decimal));
+        //}
     }
 }

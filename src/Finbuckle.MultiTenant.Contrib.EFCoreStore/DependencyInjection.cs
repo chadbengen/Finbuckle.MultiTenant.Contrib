@@ -59,6 +59,15 @@ namespace Microsoft.Extensions.DependencyInjection
             return builder.WithStore<DefaultEFCacheStore>(ServiceLifetime.Scoped);
         }
         /// <summary>
+        /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/> with SqlServer.
+        /// </summary>
+        /// <returns>The same MultiTenantBuilder passed into the method.</returns>
+        public static FinbuckleMultiTenantBuilder WithDefaultEFStore(this FinbuckleMultiTenantBuilder builder, string connectionString)
+        {
+            builder.Services.AddDbContext<DefaultTenantDbContext>(options => options.UseSqlServer(connectionString)); // Note, will not override existing context if already added.
+            return builder.WithStore<DefaultEFStore>(ServiceLifetime.Scoped);
+        }
+        /// <summary>
         /// Adds an Entity Framework store using the <see cref="DefaultTenantDbContext"/>.
         /// </summary>
         /// <returns>The same MultiTenantBuilder passed into the method.</returns>
