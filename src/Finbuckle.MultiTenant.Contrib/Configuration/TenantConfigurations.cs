@@ -8,7 +8,7 @@ namespace Finbuckle.MultiTenant.Contrib.Configuration
 {
     public class TenantConfigurations
     {
-        public TenantConfigurations() 
+        public TenantConfigurations()
             : this(new List<ITenantConfiguration>(), new List<ITenantConfiguration>())
         { }
 
@@ -36,15 +36,20 @@ namespace Finbuckle.MultiTenant.Contrib.Configuration
 
         public T Get<T>(string key)
         {
-            try { 
-                var item = Items.FirstOrDefault(i => i.Key.Equals(key, System.StringComparison.InvariantCultureIgnoreCase));
-                var value = item.Value;
-                return (T)Convert.ChangeType(value, typeof(T));
-            }
-            catch
+            try
             {
-                return default;
+                var item = Items.FirstOrDefault(i => i.Key.Equals(key, System.StringComparison.InvariantCultureIgnoreCase));
+                if (item != null)
+                {
+                    var value = item.Value;
+                    return (T)Convert.ChangeType(value, typeof(T));
+                }
             }
+            catch (Exception ex)
+            {
+            }
+
+            return default;
         }
     }
 }
