@@ -33,6 +33,8 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
             var httpContext = context as HttpContext;
 
+            _logger.LogDebug("Looking for claim {TenantClaimName}", _tenantClaimName);
+
             var tenantId = httpContext?.User?.FindFirst(_tenantClaimName)?.Value;
 
             _logger.LogDebug("Looking for tenant id {tenantId}", tenantId);
