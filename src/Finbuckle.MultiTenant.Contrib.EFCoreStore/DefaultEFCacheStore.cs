@@ -51,6 +51,8 @@ namespace CareComplete.MultiTenant.Stores
 
             if (cached == null  )
             {
+                _logger.LogDebug("Tenant cache is null.");
+
                 cached = await GetTenantsFromDbContext.ToListAsync();
 
                 SetCache(cached);
@@ -71,11 +73,18 @@ namespace CareComplete.MultiTenant.Stores
 
             if (result == null)
             {
+                _logger.LogDebug("No result found for tenant id {TenantId}.  Attempting to retrieve tenant from db directly.", id);
+
                 result = await base.TryGetAsync(id);
 
                 if (result != null)
                 {
+                    _logger.LogDebug("Tenant id {TenantId} was found in the db.  Resetting cache.", id);
                     _memoryCache.Remove(_cacheKey);
+                }
+                else
+                {
+                    _logger.LogDebug("Tenant id {TenantId} was not found in the db.", id);
                 }
             }
 
@@ -90,11 +99,17 @@ namespace CareComplete.MultiTenant.Stores
 
             if (result == null)
             {
+                _logger.LogDebug("No result found for tenant identifier: {TenantIdentifier}.  Attempting to retrieve tenant from db directly.", identifier);
+
                 var results = await base.TryGetByIdentifierAsync(identifier);
 
                 if (result != null)
                 {
+                    _logger.LogDebug("Tenant identifier {TenantIdentifier} was found in the db.  Resetting cache.", identifier);
                     _memoryCache.Remove(_cacheKey);
+                }else
+                {
+                    _logger.LogDebug("Tenant identifier {TenantIdentifier} was not found in the db.", identifier);
                 }
             }
 

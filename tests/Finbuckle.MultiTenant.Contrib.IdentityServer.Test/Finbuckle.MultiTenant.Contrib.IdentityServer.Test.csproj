@@ -5,11 +5,11 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyVersion>2.10.0.20167</AssemblyVersion>
+    <AssemblyVersion>2.11.0.20167</AssemblyVersion>
 
-    <FileVersion>2.10.0.20167</FileVersion>
+    <FileVersion>2.11.0.20167</FileVersion>
 
-    <Version>2.10.0</Version>
+    <Version>2.11.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

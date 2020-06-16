@@ -35,6 +35,8 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
 
             var tenantId = httpContext?.User?.FindFirst(_tenantClaimName)?.Value;
 
+            _logger.LogDebug("Looking for tenant id {tenantId}", tenantId);
+
             if (!string.IsNullOrWhiteSpace(tenantId))
             {
                 var store = httpContext.RequestServices.GetRequiredService<IMultiTenantStore>();
