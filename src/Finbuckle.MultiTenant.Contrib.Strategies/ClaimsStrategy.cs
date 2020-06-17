@@ -48,6 +48,8 @@ namespace Finbuckle.MultiTenant.Contrib.Strategies
                 return tenantInfo?.Identifier;
             }
 
+            _logger.LogDebug("Claim not found on user {@User}.", httpContext?.User);
+
             return null;
         }
     }
