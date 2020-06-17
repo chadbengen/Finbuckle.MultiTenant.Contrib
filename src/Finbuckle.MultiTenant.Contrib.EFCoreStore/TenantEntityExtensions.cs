@@ -23,23 +23,23 @@ namespace Finbuckle.MultiTenant.Contrib.EFCoreStore
         {
             tenant.Items.Set(Constants.IsActive, value);
         }
-        public static string GetConnectionString<TDbContext>(this TenantInfo tenantInfo)
+        public static string GetConnectionString<TDbContext>(this ITenantEntity tenant)
         {
             var key = typeof(TDbContext).Name;
-            return tenantInfo.GetConnectionString(key);
+            return tenant.GetConnectionString(key);
         }
-        public static string GetConnectionString(this TenantInfo tenantInfo, string dbName)
+        public static string GetConnectionString(this ITenantEntity tenant, string dbName)
         {
-            return tenantInfo.Items.UnSafeGet<string>(dbName);
+            return tenant.Items.UnSafeGet<string>(dbName);
         }
-        public static void SetConnectionString<TDbContext>(this TenantInfo tenantInfo, string connectionString)
+        public static void SetConnectionString<TDbContext>(this ITenantEntity tenant, string connectionString)
         {
             var key = typeof(TDbContext).Name;
-            tenantInfo.SetConnectionString(key, connectionString);
+            tenant.SetConnectionString(key, connectionString);
         }
-        public static void SetConnectionString(this TenantInfo tenantInfo, string dbName, string connectionString)
+        public static void SetConnectionString(this ITenantEntity tenant, string dbName, string connectionString)
         {
-            tenantInfo.Items.Set(dbName, connectionString);
+            tenant.Items.Set(dbName, connectionString);
         }
     }
 }
